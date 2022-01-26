@@ -1,0 +1,1 @@
+habria que hacer para que traiga una lsita de direcciones en el atributo direciones del json, hacer una funcion nueva? en python o en js?

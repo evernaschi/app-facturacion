@@ -1,0 +1,428 @@
+{
+    "infoClientes": [
+        {
+            "CUIT": 30711087326,
+            "Cliente": "Abasel",
+            "Descuentos": "Rosental",
+            "Direccion": "Santa Fe 1080 - Rosario Norte, Santa Fe",
+            "id": 1
+        },
+        {
+            "CUIT": 27236676388,
+            "Cliente": "Alberici Marcela",
+            "Descuentos": "Descuento 4 y 13,6",
+            "Direccion": "Crespo 2278 - Rosario Sud, Santa Fe",
+            "id": 2
+        },
+        {
+            "CUIT": 30637430838,
+            "Cliente": "Almaservi Fenoglio",
+            "Direccion": "Casilda 1240 - Rosario Norte, Santa Fe",
+            "id": 3
+        },
+        {
+            "CUIT": 30525497336,
+            "Cliente": "Asoc Empleados de Comercio",
+            "Direccion": [
+                "Corrientes 450 - Rosario Norte, Santa Fe",
+                "Ricardo Nu\u00f1ez 390 - Rosario Norte, Santa Fe",
+                "Ruta 33 839 - Zavalla, Santa Fe",
+                "Corrientes 462 - Rosario Norte, Santa Fe"
+            ],
+            "Lista Precios": "Empleados de Comercio",
+            "id": 4
+        },
+        {
+            "CUIT": 30566441442,
+            "Cliente": "Asoc Mutual entre Ferroviarias",
+            "Direccion": [
+                "Alvear 149 - Rosario Norte, Santa Fe",
+                "Alvear 72 - Rosario Norte, Santa Fe",
+                "Brown 2745 - Rosario Norte, Santa Fe"
+            ],
+            "id": 5
+        },
+        {
+            "CUIT": 33713215509,
+            "Cliente": "Bacim S.A.",
+            "Direccion": [
+                "Castrobarro 5294 - Rosario Sud, Santa Fe",
+                "San Martin 4935 - Rosario Norte, Santa Fe",
+                "Castro Barros 5296 - Rosario Sud, Santa Fe"
+            ],
+            "id": 6
+        },
+        {
+            "CUIT": 20281996453,
+            "Cliente": "Barbisano Mauricio",
+            "Descuentos": "Descuento 4 y 13,6",
+            "Direccion": [
+                "Juan Jose Paso 5862 - Rosario Norte, Santa Fe",
+                "Zona Rural 1 - Bouquet, Santa Fe"
+            ],
+            "Lista Precios": "German",
+            "id": 7
+        },
+        {
+            "CUIT": 20112719408,
+            "Cliente": "Bocanegra Carlos",
+            "Direccion": "Ayacucho 5465 - Rosario Sud, Santa Fe",
+            "id": 8
+        },
+        {
+            "CUIT": 20225422738,
+            "Cliente": "Camerlo Marcelo",
+            "Direccion": [
+                "Genova 1082 - Rosario Norte, Santa Fe",
+                "Genova 1082 - Rosario Norte, Santa Fe"
+            ],
+            "id": 9
+        },
+        {
+            "CUIT": 27235136827,
+            "Cliente": "Cassinerio Flavia",
+            "Descuentos": "Descuento 4 y 13,6",
+            "Direccion": "Crespo 2905 - Rosario Sud, Santa Fe",
+            "id": 10
+        },
+        {
+            "CUIT": 20235137845,
+            "Cliente": "Cassinerio Guillermo",
+            "Direccion": [
+                "Mendoza 7726 - Rosario Norte, Santa Fe",
+                "Mendoza 7720 - Rosario Sud, Santa Fe"
+            ],
+            "id": 11
+        },
+        {
+            "CUIT": 23174600309,
+            "Cliente": "Cerquetella Marcelo",
+            "Descuentos": "Descuento 4 y 13,6",
+            "Direccion": [
+                "Sorrento 840 - Rosario Norte, Santa Fe",
+                "Laprida 1640 - Rosario Sud, Santa Fe"
+            ],
+            "id": 12
+        },
+        {
+            "CUIT": 27058193394,
+            "Cliente": "Chitarroni Esther",
+            "Descuentos": "Descuento 4 y 13,6",
+            "Direccion": "Pellegrini 623 - Rosario Sud, Santa Fe",
+            "id": 13
+        },
+        {
+            "CUIT": 30526133885,
+            "Cliente": "David Rosental e Hijos S.A.C.I.",
+            "Descuentos": "Rosental",
+            "Direccion": [
+                "Mendoza 8833 - Rosario Sud, Santa Fe",
+                "Avenida 3 Y Calle 133 0 - Villa Gesell, Buenos Aires",
+                "Belgrano Y Maipu 0 - Nogoya, Entre R\u00edos",
+                "Hipolito Irygoyen 415 - Victoria, Entre R\u00edos",
+                "Larrea Y Abasolo 0 - Victoria, Entre R\u00edos",
+                "Av. Fagnano 35 - Caleta Olivia, Santa Cruz",
+                "San Martin 1298 - Perito Moreno, Santa Cruz",
+                "Rivadavia 286 - Pico Truncado, Santa Cruz",
+                "Ruta 9 Y Jorge Newbery 0 - Funes, Santa Fe",
+                "Santa Fe 1865 - Funes, Santa Fe",
+                "Alberdi 1565 - Pueblo Esther, Santa Fe",
+                "Corrientes 191 - Rosario Sud, Santa Fe",
+                "Rioja 1660 - Rosario Sud, Santa Fe",
+                "Rioja 850 - Rosario Sud, Santa Fe",
+                "San Martin 533 - Rosario Sud, Santa Fe",
+                "Bolivia 2480 - San Lorenzo, Santa Fe",
+                "Regimiento Doce 4278 - Santa Fe, Santa Fe",
+                "San Jeronimo 2475 - Santa Fe, Santa Fe",
+                "Superi 662 - Rosario Norte, Santa Fe",
+                "3 De Febrero 198 - Rosario Sud, Santa Fe",
+                "Av. Eva Peron 4698 - Rosario Sud, Santa Fe",
+                "San Luis 1145 - Rosario Sud, Santa Fe",
+                "Alsina 2270 - Rosario Sud, Santa Fe",
+                "Martin Fierro 120 Piso:0 Dpto:0 - Gualeguay, Entre R\u00edos",
+                "Martin Fierro 120 Piso:0 Dpto:0 - Gualeguay, Entre R\u00edos",
+                "San Martin 1170 Piso:0 Dpto:0 - Totoras, Santa Fe",
+                "Alberdi 1013 Piso:0 Dpto:0 - Pueblo Esther, Santa Fe",
+                "Bv. San Martin 898 Piso:0 Dpto:0 - Barrancas, Santa Fe",
+                "Av. Rivadavia 1001 Piso:0 Dpto:0 - Tostado, Santa Fe",
+                "Pte Peron 2535 Piso:0 Dpto:0 - Tostado, Santa Fe",
+                "Maipu 1518 Piso:0 Dpto:0 - Tostado, Santa Fe",
+                "Av. San Martin 4217 - Rosario Sud, Santa Fe",
+                "Yapeyu 1754 - Perez, Santa Fe",
+                "Sarmiento Y Eva Peron 0 - Diamante, Entre R\u00edos",
+                "Buenos Aires 127 - Libertador San Martin (Diamante), Entre R\u00edos",
+                "Sarmiento Y Eva Peron 0 - Viale, Entre R\u00edos",
+                "Sarmiento Y 25 De Mayo 0 - Viale, Entre R\u00edos",
+                "Alberdi 731 - Concepcion Del Uruguay, Entre R\u00edos",
+                "Alberdi 731 - Concepcion Del Uruguay, Entre R\u00edos",
+                "Rondeau 1283 - Rosario Norte, Santa Fe",
+                "Rondeau 1283 - Rosario Norte, Santa Fe",
+                "Au. Aufran 215 - Esperanza, Santa Fe",
+                "Av. San Jos\u00e9 De Calasanz 8428 - Rosario Norte, Santa Fe",
+                "Mendoza 8145 - Rosario Sud, Santa Fe"
+            ],
+            "Lista Precios": "Rosental",
+            "id": 14
+        },
+        {
+            "CUIT": 30711653364,
+            "Cliente": "Del Manantial S.R.L.",
+            "Direccion": "Cordoba 601 - San Genaro Norte, Santa Fe",
+            "id": 15
+        },
+        {
+            "CUIT": 27112705207,
+            "Cliente": "Deorazio Raquel",
+            "Direccion": "Rio De Janeiro 2215 - Rosario Sud, Santa Fe",
+            "id": 16
+        },
+        {
+            "CUIT": 20061832042,
+            "Cliente": "Di Pompo Luis",
+            "Direccion": "Av Pellegrini 3828 - Rosario Sud, Santa Fe",
+            "id": 17
+        },
+        {
+            "CUIT": 20210408534,
+            "Cliente": "Distribuidora Aguilar",
+            "Descuentos": "Descuento 4 y 13,6",
+            "Direccion": [
+                "Av.Provincias Unidas (Bis) 1158 - Rosario Norte, Santa Fe",
+                "Formosa 344 Piso:BIS - Rosario Norte, Santa Fe",
+                "Provincias Unidas Bis 1158 - Rosario Norte, Santa Fe"
+            ],
+            "id": 18
+        },
+        {
+            "CUIT": 30689214114,
+            "Cliente": "El Delfin Blanco S.A.",
+            "Descuentos": "Descuento 0",
+            "Direccion": [
+                "Cafferata 401 - Rosario Norte, Santa Fe",
+                "L N Alem 3165 - Rosario, Santa Fe",
+                "Ovidio Lagos 2645 - Rosario Sud, Santa Fe"
+            ],
+            "Lista Precios": "Delfin",
+            "id": 19
+        },
+        {
+            "CUIT": 20060557153,
+            "Cliente": "Fermanelli Enrique",
+            "Direccion": "Gianneo 2202 - Rosario Norte, Santa Fe",
+            "id": 20
+        },
+        {
+            "CUIT": 20146313001,
+            "Cliente": "Here\u00f1u",
+            "Direccion": [
+                "San Martin 5961 - Rosario Sud, Santa Fe",
+                "Av Arijon 2021 - Rosario, Santa Fe",
+                "Av. San Martin 5961 - Rosario Sud, Santa Fe"
+            ],
+            "id": 21
+        },
+        {
+            "CUIT": 30520739625,
+            "Cliente": "La Gallega Sup. S.A.",
+            "Descuentos": "La Gallega",
+            "Direccion": [
+                "Bv. Oro\u00f1o 245 Piso:1 - Rosario Norte, Santa Fe",
+                "Alberdi 465 - Rosario Norte, Santa Fe",
+                "Sarmiento 1558 - Rosario Sud, Santa Fe",
+                "Bv.Oro\u00f1o 245 - Rosario Norte, Santa Fe",
+                "Entre Rios 2361 - Rosario Sud, Santa Fe",
+                "Urquiza 1145 - Rosario Norte, Santa Fe",
+                "Mayorista Publica S/N 0 - Rosario Norte, Santa Fe",
+                "Mendoza 7675 - Rosario Norte, Santa Fe",
+                "Dorrego 965 - Rosario Norte, Santa Fe",
+                "9 De Julio 385 - Rosario Norte, Santa Fe",
+                "Cordoba 7605 - Rosario Norte, Santa Fe",
+                "Balcarce 248 - Rosario Norte, Santa Fe",
+                "9 De Julio 734 - Rosario Norte, Santa Fe",
+                "Pellegrini 1194 - Rosario Norte, Santa Fe",
+                "Paraguay 271 - Rosario Norte, Santa Fe",
+                "Alem 1125 - Rosario Norte, Santa Fe",
+                "Pellegrini 1966 - Rosario Norte, Santa Fe",
+                "Av. San Martin 2451 - Villa Gobernador Galvez, Santa Fe",
+                "Mendoza 255 - Rosario Sud, Santa Fe",
+                "Mar Del Plata - Bis 465 - Rosario Norte, Santa Fe"
+            ],
+            "Lista Precios": "La Gallega",
+            "id": 22
+        },
+        {
+            "CUIT": 30541618232,
+            "Cliente": "La Reina S.A.",
+            "Descuentos": "La Reina",
+            "Direccion": [
+                "San Martin 3419 - Rosario Sud, Santa Fe",
+                "Bv. Oro\u00f1o 3478 - Rosario Sud, Santa Fe",
+                "Av. Filippini 1290 - Villa Gobernador Galvez, Santa Fe",
+                "San Martin 3419 - Rosario Sud, Santa Fe"
+            ],
+            "Lista Precios": "La Reina",
+            "id": 23
+        },
+        {
+            "CUIT": 30592417177,
+            "Cliente": "La Sandro S.R.L.",
+            "Direccion": [
+                "Mister Ross 730 - Rosario Sud, Santa Fe",
+                "San Martin 4618 - Rosario Sud, Santa Fe",
+                "Mr Ross 730 - Rosario Sud, Santa Fe"
+            ],
+            "Lista Precios": "La Sandro",
+            "id": 24
+        },
+        {
+            "CUIT": 30578587515,
+            "Cliente": "Lucio Di Santo S.A.",
+            "Descuentos": "Di Santo",
+            "Direccion": [
+                "Av. 25 De Mayo Bis 1810 - Rosario Norte, Santa Fe",
+                "Bolivia 3810 - Santa Fe, Santa Fe",
+                "Av 25 De Mayo 1810 Piso:BIS - Rosario Norte, Santa Fe",
+                "Av. Arijon 565 - Rosario Norte, Santa Fe",
+                "Bv. Avellaneda 441 - Rosario Norte, Santa Fe",
+                "Jose Maria Rosa (Bis) 3509 - Rosario Norte, Santa Fe",
+                "Juan Pablo Ii - Bis 1740 - Rosario Norte, Santa Fe"
+            ],
+            "Lista Precios": "Di Santo",
+            "id": 25
+        },
+        {
+            "CUIT": 33716672749,
+            "Cliente": "Mafer",
+            "Direccion": "Av. Pellegrini 3828 - Rosario Sud, Santa Fe",
+            "id": 26
+        },
+        {
+            "CUIT": 30710868952,
+            "Cliente": "Manicord S.R.L.",
+            "Direccion": [
+                "Mendoza 1101 - Rosario Sud, Santa Fe",
+                "Presidente Roca 82 - Rosario Norte, Santa Fe",
+                "Mendoza 1101 - Rosario Norte, Santa Fe",
+                "General Guido 1958 - Funes, Santa Fe",
+                "Rioja 599 - Rosario Sud, Santa Fe"
+            ],
+            "id": 27
+        },
+        {
+            "CUIT": 30710868952,
+            "Cliente": "Manicord S.R.L.",
+            "Direccion": [
+                "Mendoza 1101 - Rosario Sud, Santa Fe",
+                "Presidente Roca 82 - Rosario Norte, Santa Fe",
+                "Mendoza 1101 - Rosario Norte, Santa Fe",
+                "General Guido 1958 - Funes, Santa Fe",
+                "Rioja 599 - Rosario Sud, Santa Fe"
+            ],
+            "id": 28
+        },
+        {
+            "CUIT": 30707737456,
+            "Cliente": "Melo S.R.L.",
+            "Direccion": "Cerrito 314 - Rosario Sud, Santa Fe",
+            "id": 29
+        },
+        {
+            "CUIT": 30707772367,
+            "Cliente": "Nuevo Premium S.A.",
+            "Direccion": [
+                "San Martin 395 - Arroyo Seco, Santa Fe",
+                "San Jose 1845 - Funes, Santa Fe",
+                "Belgrano 532 - Galvez, Santa Fe",
+                "Colon 1090 - Totoras, Santa Fe",
+                "Fisherton Plaza Open Mall 0 - Barrio Fisherton, Santa Fe",
+                "Pavon 4928 - Rosario Sud, Santa Fe",
+                "Av. J.R. Rodriguez Y Av. J.R.Perez 0 - Perez, Santa Fe",
+                "Av. San Martin Y J. Roque Perez 1043 - Perez, Santa Fe",
+                "San Martin 1043 - Perez, Santa Fe",
+                "Cerrito 314 - Rosario Sud, Santa Fe",
+                "San Martin 5961 - Rosario Sud, Santa Fe",
+                "Casilda 1248 - Rosario Norte, Santa Fe",
+                "Houssay 4308 Piso:BIS - Funes, Santa Fe"
+            ],
+            "Lista Precios": "Premium",
+            "id": 30
+        },
+        {
+            "CUIT": 30707998624,
+            "Cliente": "Nuzzi S.R.L.",
+            "Direccion": "Vieytes 3090 - Rosario Norte, Santa Fe",
+            "id": 31
+        },
+        {
+            "CUIT": 27134099424,
+            "Cliente": "Orcajo Angela",
+            "Direccion": [
+                "Ovidio Lagos 5658 - Rosario Sud, Santa Fe",
+                "Avenida Arijon 2766 - Rosario Sud, Santa Fe"
+            ],
+            "id": 32
+        },
+        {
+            "CUIT": 20078412640,
+            "Cliente": "Reynoso Sebastian",
+            "Descuentos": "Descuento 4 y 13,6",
+            "Direccion": "Viamonte 158 - Granadero Baigorria, Santa Fe",
+            "id": 33
+        },
+        {
+            "CUIT": 30709094838,
+            "Cliente": "Ritagliati",
+            "Direccion": [
+                "Alvear 164 - Rosario Norte, Santa Fe",
+                "Av. Arturo Illia 1690 - Rosario Norte, Santa Fe",
+                "Av. Arturo Illia 1890 - Rosario Norte, Santa Fe"
+            ],
+            "id": 34
+        },
+        {
+            "CUIT": 30714642797,
+            "Cliente": "SELECT FRUT S.R.L. ",
+            "Descuentos": "Descuento 0",
+            "Direccion": [
+                "San Juan 1754 - Rosario Norte, Santa Fe",
+                "Martin Rodriguez 15 Piso:BIS - Rosario Norte, Santa Fe",
+                "Viamonte 1462 - Rosario Sud, Santa Fe"
+            ],
+            "id": 35
+        },
+        {
+            "CUIT": 30530994801,
+            "Cliente": "Sindicato de Trabajadores Municipales",
+            "Descuentos": "Descuento 4 y 13,6",
+            "Direccion": [
+                "Entre Rios 1242 - Rosario Sud, Santa Fe",
+                "Manuel De La Plaza 0 - Agua De Oro, C\u00f3rdoba",
+                "Mitre 1260 - Rosario Sud, Santa Fe",
+                "Mendoza 1339 - Rosario Norte, Santa Fe",
+                "Mendoza 1355 - Rosario Sud, Santa Fe",
+                "Francia 1800 - Rosario Sud, Santa Fe",
+                "Av.De Los Trabajadores 0 - Rosario Norte, Santa Fe",
+                "Entre Rios 1234 - Rosario Sud, Santa Fe"
+            ],
+            "id": 36
+        },
+        {
+            "CUIT": 30710781253,
+            "Cliente": "Super Gloria S.R.L.",
+            "Descuentos": "Descuento 4 y 13,6",
+            "Direccion": "Juan Jose Paso 8104 - Rosario Norte, Santa Fe",
+            "id": 37
+        },
+        {
+            "CUIT": 30711116601,
+            "Cliente": "Waikiki S.A.",
+            "Descuentos": "Descuento 0",
+            "Direccion": [
+                "San Luis 3889 - Rosario Norte, Santa Fe",
+                "Ov Lagos 1401 - Rosario Sud, Santa Fe"
+            ],
+            "Lista Precios": "Delfin",
+            "id": 38
+        }
+    ]
+}
