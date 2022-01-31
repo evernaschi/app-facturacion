@@ -1,12 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, ScrollView  } from 'react-native';
 import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown'
 import { useState } from "react";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const App = () => {
-	// const fileClientes = require('./assets/clientes.json');
 	const Stack = createNativeStackNavigator();
 	return (
 	<NavigationContainer>
@@ -35,6 +34,12 @@ const App = () => {
 				title: 'Seleccionar Dirección',
 			}}			
 			/>
+			<Stack.Screen name="Facturacion" 
+			component={FacturacionScreen} 
+			options={{ 
+				title: 'Facturacion',
+			}}			
+			/>
 		</Stack.Navigator>
 	</NavigationContainer>
 	);
@@ -48,7 +53,7 @@ const SeleccionClienteScreen = ({ navigation }) => {
 	let clientes = fileClientes.infoClientes
 	clientes = clientes.map((item, index) => ({ ...item, id: index, title:item.Cliente }))
 	return (
-		<View style={styles.container}>
+		<View style={styles.containerCentered}>
 			<View style={styles.section}>
 				{/* <StatusBar style="auto" /> */}
 				<AutocompleteDropdown
@@ -75,9 +80,13 @@ const SeleccionClienteScreen = ({ navigation }) => {
 				<Button
 						title="Confirmar"
 						color="#0099ff"
-						onPress={() =>
-							navigation.navigate('SeleccionDireccion', { cliente: selectedItem })
-						}
+						onPress={() => {
+							if (selectedItem){
+								navigation.navigate('SeleccionDireccion', { cliente: selectedItem })
+							} else {
+								alert("Seleccione un Cliente");
+							}
+						}}
 						/>
 			</View>
 		</View>
@@ -95,7 +104,7 @@ const SeleccionDireccionScreen = ({ navigation, route }) => {
 		return rObj;
 	});
 	return (
-		<View style={styles.container}>
+		<View style={styles.containerCentered}>
 			<Text style={styles.centerText}>Seleccionar Dirección para el Cliente:</Text>
 			<Text style={[styles.centerText, styles.boldText]}>{route.params.cliente.title}</Text>
 			<View style={styles.section}>
@@ -125,34 +134,117 @@ const SeleccionDireccionScreen = ({ navigation, route }) => {
 				<Button
 					title="Confirmar"
 					color="#0099ff"
-					// onPress={() =>
-					// navigation.navigate('SeleccionDireccion', { cliente: selectedItem })
-					// }
-					/>
+					onPress={() => {
+						if (selectedItem){
+							navigation.navigate('Facturacion', { cliente:route.params.cliente, direccion: selectedItem })
+						} else {
+							alert("Seleccione una Direccion");
+						}
+					}}
+				/>
 			</View>
 		</View>
 	);
 };
+
+const FacturacionScreen = ({ navigation, route }) => {
+	return (
+		<View style={styles.container}>
+			<ScrollView >
+				<View style={[styles.row, styles.centerText, styles.top]}>
+					<Text style={styles.centerText}>Cliente:</Text>
+					<Text style={[styles.centerText, styles.boldText]}>{route.params.cliente.title}</Text>
+				</View>
+				<View style={[styles.row, styles.centerText]}>
+					<Text style={styles.centerText}>Direccion:</Text>
+					<Text style={[styles.centerText, styles.boldText]}>{route.params.direccion.title}</Text>
+				</View>
+				<Encabezado/>
+				<Fila/>
+			</ScrollView>
+		</View>
+	);
+};
+
+const Encabezado = () => {
+	return (
+	<View style={styles.row}>
+			<Text style={[styles.celda, styles.boldText, {textAlign:"center"}]}>PRODUCTO</Text>
+			<Text style={[styles.celda, styles.boldText, {textAlign:"center"}]}>CAJAS</Text>
+			<Text style={[styles.celda, styles.boldText, {textAlign:"center"}]}>UNIDADES</Text>
+	</View>
+	)
+}
+
+const Fila = () => {
+	const [text, onChangeText] = useState(null);
+	const [number, onChangeNumber] = useState(null);
+	return (
+	<View style={styles.row}>
+		<TextInput
+			style={styles.celda}
+			onChangeText={onChangeText}
+			placeholder="Ingrese Producto"
+			value={text}
+		/>
+		<TextInput
+			style={styles.celda}
+			onChangeText={onChangeNumber}
+			value={number}
+			placeholder="Ingrese Cajas"
+			keyboardType="numeric"
+			/>
+		<TextInput
+			style={styles.celda}
+			onChangeText={onChangeNumber}
+			value={number}
+			placeholder="Ingrese Cantidad"
+			keyboardType="numeric"
+		/>
+	</View>
+	)
+}
 
 const styles = StyleSheet.create({
     centerText: {
         textAlignVertical: 'top',
         textAlign: 'center',
         marginVertical: 3,
-        // fontSize: 20,
+		alignItems: 'center',
+		justifyContent: 'center'
+	},
+    containerCentered: {
+		flex: 1,
+		backgroundColor: '#fff',
+		padding: 20,
+		justifyContent: 'center',
 	},
     container: {
 		flex: 1,
 		backgroundColor: '#fff',
-		padding: 20,
-		// alignItems: 'center',
-		justifyContent: 'center',
+		// padding: 20,
 	},
 	boldText: {
 		fontWeight: 'bold'
 	},
+	top: {
+		alignItems: "flex-start",
+	},
 	section: {
 		marginBottom: 20,
 		marginTop: 20,
+	},
+	celda: {
+		height: 40,
+		margin: 0,
+		borderWidth: 1,
+		padding: 10,
+		flex:1,
+	},
+	row: {
+		overflow: "hidden",
+		flexDirection: "row",
+		flexWrap: "nowrap",
+		alignContent: "stretch",
 	},
 });
