@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import { Animated, StyleSheet, Text, View, I18nManager } from 'react-native';
 
 import { RectButton, Swipeable } from 'react-native-gesture-handler';
@@ -33,7 +33,9 @@ export default class GmailStyleSwipeableRow extends Component {
       extrapolate: 'clamp',
     });
     return (
-      <RectButton style={styles.rightAction} onPress={this.close}>
+      <RectButton style={styles.rightAction} onPress={() => {
+        this.props.eliminarFilaCallback(this.props.index)
+      }}>
         <AnimatedIcon
           name="delete-forever"
           size={30}
@@ -57,7 +59,7 @@ export default class GmailStyleSwipeableRow extends Component {
         friction={2}
         leftThreshold={80}
         rightThreshold={41}
-        renderLeftActions={this.renderLeftActions}
+        // renderLeftActions={this.renderLeftActions}
         renderRightActions={this.renderRightActions}>
         {children}
       </Swipeable>

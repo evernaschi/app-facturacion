@@ -1,0 +1,1104 @@
+{
+    "infoProductos": [
+        {
+            "CODIGO": "as",
+            "DESCRIPCION": "ALFAJORES SANTAFESINOS X 200 GRS.",
+            "id": 1
+        },
+        {
+            "CODIGO": "ta",
+            "DESCRIPCION": "TAPITAS DE ALFAJOR X 500 GRS.",
+            "UNIDADES": 15,
+            "id": 2
+        },
+        {
+            "CODIGO": "ta2",
+            "DESCRIPCION": "TAPITAS DE ALFAJOR X 270 GRS.",
+            "UNIDADES": 30,
+            "id": 3
+        },
+        {
+            "CODIGO": "v1kg",
+            "DESCRIPCION": "VAINILLAS X 1 KG.",
+            "UNIDADES": 1,
+            "id": 4
+        },
+        {
+            "CODIGO": "v2kg",
+            "DESCRIPCION": "VAINILLAS X 2 KG.",
+            "id": 5
+        },
+        {
+            "CODIGO": "v2",
+            "DESCRIPCION": "VAINILLAS X 200 GRS.",
+            "UNIDADES": 20,
+            "id": 6
+        },
+        {
+            "CODIGO": "v4",
+            "DESCRIPCION": "VAINILLAS X 400 GRS.",
+            "UNIDADES": 10,
+            "id": 7
+        },
+        {
+            "CODIGO": "b2",
+            "DESCRIPCION": "BIZCOCHOS X 200 GRS.",
+            "UNIDADES": 25,
+            "id": 8
+        },
+        {
+            "CODIGO": "pal",
+            "DESCRIPCION": "PALMERITAS X 200 GRS.",
+            "UNIDADES": 20,
+            "id": 9
+        },
+        {
+            "CODIGO": "ama",
+            "DESCRIPCION": "AMARETTIS X 150 GRS.",
+            "UNIDADES": 20,
+            "id": 10
+        },
+        {
+            "CODIGO": "c4",
+            "DESCRIPCION": "CUBANITOS X 400 GRS.",
+            "UNIDADES": 8,
+            "id": 11
+        },
+        {
+            "CODIGO": "c2",
+            "DESCRIPCION": "CUBANITOS X 200 GRS.",
+            "UNIDADES": 12,
+            "id": 12
+        },
+        {
+            "CODIGO": "cb",
+            "DESCRIPCION": "CUBANITOS BANDEJA X 200 GRS.",
+            "UNIDADES": 20,
+            "id": 13
+        },
+        {
+            "CODIGO": "c25",
+            "DESCRIPCION": "CUBANITOS X 2,5 KG.",
+            "id": 14
+        },
+        {
+            "CODIGO": "bar",
+            "DESCRIPCION": "BARQUILLOS X 240 GRS.",
+            "UNIDADES": 20,
+            "id": 15
+        },
+        {
+            "CODIGO": "cucu",
+            "DESCRIPCION": "CUCURUCHOS X 100 GRS.",
+            "UNIDADES": 20,
+            "id": 16
+        },
+        {
+            "CODIGO": "cucu2",
+            "DESCRIPCION": "CUCURUCHITOS X 110 GRS.",
+            "UNIDADES": 20,
+            "id": 17
+        },
+        {
+            "CODIGO": "h",
+            "DESCRIPCION": "HOJALDRES X 150 GRS.",
+            "UNIDADES": 30,
+            "id": 18
+        },
+        {
+            "CODIGO": "m1kg",
+            "DESCRIPCION": "MERENGUES X 1 KG.",
+            "UNIDADES": 1,
+            "id": 19
+        },
+        {
+            "CODIGO": "m",
+            "DESCRIPCION": "MERENGUES X 150 GRS.",
+            "UNIDADES": 15,
+            "id": 20
+        },
+        {
+            "CODIGO": "tard",
+            "DESCRIPCION": "TARTELETAS DULCES X 150 GRS.",
+            "UNIDADES": 20,
+            "id": 21
+        },
+        {
+            "CODIGO": "tars",
+            "DESCRIPCION": "TARTELETAS SALADAS X 150 GRS.",
+            "UNIDADES": 20,
+            "id": 22
+        },
+        {
+            "CODIGO": "b3",
+            "DESCRIPCION": "BIZCOCHOS X 300 GRS.",
+            "UNIDADES": 21,
+            "id": 23
+        },
+        {
+            "CODIGO": "tm",
+            "DESCRIPCION": "TOSTADAS MESA X 200 GRS.",
+            "UNIDADES": 18,
+            "id": 24
+        },
+        {
+            "CODIGO": "td",
+            "DESCRIPCION": "TOSTADAS DULCES X 200 GRS.",
+            "UNIDADES": 18,
+            "id": 25
+        },
+        {
+            "CODIGO": "ti",
+            "DESCRIPCION": "TOSTADAS INTEGRALES X 200 GRS.",
+            "UNIDADES": 18,
+            "id": 26
+        },
+        {
+            "CODIGO": "ts",
+            "DESCRIPCION": "TOSTADAS SIN SAL X 200 GRS.",
+            "UNIDADES": 18,
+            "id": 27
+        },
+        {
+            "CODIGO": "tl",
+            "DESCRIPCION": "TOSTADAS LIGHT X 200 GRS.",
+            "UNIDADES": 18,
+            "id": 28
+        },
+        {
+            "CODIGO": "tms",
+            "DESCRIPCION": "TOSTADAS MULTISEMILLAS X 200 GRS.",
+            "UNIDADES": 18,
+            "id": 29
+        },
+        {
+            "CODIGO": "gm",
+            "DESCRIPCION": "GRISINES MALTEADOS X 160 GRS.",
+            "UNIDADES": 20,
+            "id": 30
+        },
+        {
+            "CODIGO": "gi",
+            "DESCRIPCION": "GRISINES INTEGRALES X 160 GRS.",
+            "UNIDADES": 20,
+            "id": 31
+        },
+        {
+            "CODIGO": "gss",
+            "DESCRIPCION": "GRISINES SIN SAL X 160 GRS.",
+            "UNIDADES": 20,
+            "id": 32
+        },
+        {
+            "CODIGO": "gcs",
+            "DESCRIPCION": "GRISINES CON SESAMO X 160 GRS.",
+            "UNIDADES": 20,
+            "id": 33
+        },
+        {
+            "CODIGO": "gfh",
+            "DESCRIPCION": "GRISINES FINAS HIERBAS  X 160 GRS.",
+            "UNIDADES": 20,
+            "id": 34
+        },
+        {
+            "CODIGO": "gl",
+            "DESCRIPCION": "GRISINES LIGHT X 160 GRS.",
+            "UNIDADES": 20,
+            "id": 35
+        },
+        {
+            "CODIGO": "g10",
+            "DESCRIPCION": "GRISINES MALTEADOS X 10 GRS.",
+            "UNIDADES": 10,
+            "id": 36
+        },
+        {
+            "CODIGO": "pd",
+            "DESCRIPCION": "PORORO DULCE X 95 GRS.",
+            "UNIDADES": 12,
+            "id": 37
+        },
+        {
+            "CODIGO": "pm",
+            "DESCRIPCION": "PORORO MANTECA X 100 GRS.",
+            "UNIDADES": 12,
+            "id": 38
+        },
+        {
+            "CODIGO": "pml",
+            "DESCRIPCION": "PORORO MANTECA LIGHT X 100 GRS.",
+            "UNIDADES": 12,
+            "id": 39
+        },
+        {
+            "CODIGO": "c",
+            "DESCRIPCION": "CHIPA X 250 GRS.",
+            "UNIDADES": 20,
+            "id": 40
+        },
+        {
+            "id": 41
+        },
+        {
+            "CODIGO": "fls",
+            "DESCRIPCION": "SAL FINA LAVADA SECA X 25 K",
+            "UNIDADES": 1,
+            "id": 42
+        },
+        {
+            "CODIGO": "mat",
+            "DESCRIPCION": "MAYONESA AJO TAU 10 X 300G        ",
+            "UNIDADES": 10,
+            "id": 43
+        },
+        {
+            "CODIGO": "mpt",
+            "DESCRIPCION": "MAYONESA PICANTE TAU 10 X 300G    ",
+            "UNIDADES": 10,
+            "id": 44
+        },
+        {
+            "CODIGO": "mct",
+            "DESCRIPCION": "MAYO CHIMI TAU 10 X 300G",
+            "UNIDADES": 10,
+            "id": 45
+        },
+        {
+            "CODIGO": "mh",
+            "DESCRIPCION": "MAYONESA HEINZ 12 X 350GR",
+            "UNIDADES": 12,
+            "id": 46
+        },
+        {
+            "CODIGO": "mhl",
+            "DESCRIPCION": "MAYONESA HEINZ LIGHT 12 X 850GR",
+            "UNIDADES": 12,
+            "id": 47
+        },
+        {
+            "CODIGO": "stc",
+            "DESCRIPCION": "CAESAR TAU 10 X 300GR         ",
+            "UNIDADES": 10,
+            "id": 48
+        },
+        {
+            "CODIGO": "stcl",
+            "DESCRIPCION": "CAESAR LIGHT TAU 10 X 310GR   ",
+            "UNIDADES": 10,
+            "id": 49
+        },
+        {
+            "CODIGO": "str",
+            "DESCRIPCION": "RANCH TAU 10 X 300GR          ",
+            "UNIDADES": 10,
+            "id": 50
+        },
+        {
+            "CODIGO": "stchi",
+            "DESCRIPCION": "CHIMICHURRI TAU 10 X 310 GR   ",
+            "UNIDADES": 10,
+            "id": 51
+        },
+        {
+            "CODIGO": "stbar",
+            "DESCRIPCION": "BARBACOA TAU 10 X 340GR       ",
+            "UNIDADES": 10,
+            "id": 52
+        },
+        {
+            "CODIGO": "stbig",
+            "DESCRIPCION": "BIG TAU TAU 10 X 300GR        ",
+            "UNIDADES": 10,
+            "id": 53
+        },
+        {
+            "CODIGO": "stche",
+            "DESCRIPCION": "CHEDDAR TAU 10 X 300GR        ",
+            "UNIDADES": 10,
+            "id": 54
+        },
+        {
+            "CODIGO": "stcol",
+            "DESCRIPCION": "COLESLAW TAU 10 X 310GR       ",
+            "UNIDADES": 10,
+            "id": 55
+        },
+        {
+            "CODIGO": "stt",
+            "DESCRIPCION": "TERIYAKI TAU 10 X 320GR       ",
+            "UNIDADES": 10,
+            "id": 56
+        },
+        {
+            "CODIGO": "stmd",
+            "DESCRIPCION": "MOSTAZA DULCE TAU 10 X 320GR  ",
+            "UNIDADES": 10,
+            "id": 57
+        },
+        {
+            "CODIGO": "stbar1",
+            "DESCRIPCION": "BARBACOA TAU DP 6 X 1000G     ",
+            "UNIDADES": 6,
+            "id": 58
+        },
+        {
+            "CODIGO": "stbbq",
+            "DESCRIPCION": "BBQ TAU DP 12 X 90G           ",
+            "UNIDADES": 12,
+            "id": 59
+        },
+        {
+            "CODIGO": "ge1",
+            "DESCRIPCION": "GRUESA EST. X 1 KG.",
+            "UNIDADES": 15,
+            "id": 60
+        },
+        {
+            "CODIGO": "ge5",
+            "DESCRIPCION": "GRUESA EST. X 500 GRS.",
+            "UNIDADES": 24,
+            "id": 61
+        },
+        {
+            "CODIGO": "gs",
+            "DESCRIPCION": "GRUESA SALERO X 500 GRS.",
+            "UNIDADES": 6,
+            "id": 62
+        },
+        {
+            "CODIGO": "gp",
+            "DESCRIPCION": "GRUESA PAQ. X 1KG.",
+            "UNIDADES": 15,
+            "id": 63
+        },
+        {
+            "CODIGO": "gde",
+            "DESCRIPCION": "GRUESA DOS ESTRELLAS X 1 KG.",
+            "UNIDADES": 10,
+            "id": 64
+        },
+        {
+            "CODIGO": "pe1",
+            "DESCRIPCION": "PARRILLERA EST. X 1 KG.",
+            "UNIDADES": 15,
+            "id": 65
+        },
+        {
+            "CODIGO": "pe5",
+            "DESCRIPCION": "PARRILLERA EST. X 500 GRS.",
+            "UNIDADES": 24,
+            "id": 66
+        },
+        {
+            "CODIGO": "ps",
+            "DESCRIPCION": "PARRILLERA SALERO X 500 GRS.",
+            "UNIDADES": 6,
+            "id": 67
+        },
+        {
+            "CODIGO": "pp",
+            "DESCRIPCION": "PARRILLERA PAQ. X 1 KG.",
+            "UNIDADES": 15,
+            "id": 68
+        },
+        {
+            "CODIGO": "pr",
+            "DESCRIPCION": "PARRILLERA RESERO X 1KG.",
+            "UNIDADES": 10,
+            "id": 69
+        },
+        {
+            "CODIGO": "fe",
+            "DESCRIPCION": "FINA ESTUCHE X 500 GRS.",
+            "UNIDADES": 24,
+            "id": 70
+        },
+        {
+            "CODIGO": "fp",
+            "DESCRIPCION": "FINA PAQUETE X 500 GRS.",
+            "UNIDADES": 12,
+            "id": 71
+        },
+        {
+            "CODIGO": "fsm",
+            "DESCRIPCION": "FINA SALERO MESA X 500 GRS.",
+            "UNIDADES": 6,
+            "id": 72
+        },
+        {
+            "CODIGO": "fsc",
+            "DESCRIPCION": "FINA SALERO COCINA X 500 GRS.",
+            "UNIDADES": 6,
+            "id": 73
+        },
+        {
+            "CODIGO": "fs",
+            "DESCRIPCION": "FINA SALERO X 250 GRS.",
+            "UNIDADES": 6,
+            "id": 74
+        },
+        {
+            "CODIGO": "fde",
+            "DESCRIPCION": "FINA DOS ESTRELLAS X 500",
+            "UNIDADES": 24,
+            "id": 75
+        },
+        {
+            "CODIGO": "nada",
+            "DESCRIPCION": "FINA SOBRE 0,5 GRS.",
+            "id": 76
+        },
+        {
+            "CODIGO": "sfr",
+            "DESCRIPCION": "SAL FINA REDUC 33% 12 X 500 GRS.",
+            "UNIDADES": 12,
+            "id": 77
+        },
+        {
+            "CODIGO": "ser",
+            "DESCRIPCION": "SAL ENTREFINA REDUC 33% 12 X 500 GRS.",
+            "UNIDADES": 12,
+            "id": 78
+        },
+        {
+            "CODIGO": "le",
+            "DESCRIPCION": "LIGHT EST. X 500 GRS.",
+            "UNIDADES": 12,
+            "id": 79
+        },
+        {
+            "CODIGO": "ls",
+            "DESCRIPCION": "LIGHT SALERO X 250 GRS.",
+            "UNIDADES": 6,
+            "id": 80
+        },
+        {
+            "CODIGO": "ls1",
+            "DESCRIPCION": "LIGHT SALERO X 100 GRS.",
+            "UNIDADES": 12,
+            "id": 81
+        },
+        {
+            "CODIGO": "lce",
+            "DESCRIPCION": "LIGHT C/ESPECIAS X 200 GRS.",
+            "UNIDADES": 6,
+            "id": 82
+        },
+        {
+            "CODIGO": "lch",
+            "DESCRIPCION": "LIGHT C/HIERBAS X 200 GRS.",
+            "UNIDADES": 6,
+            "id": 83
+        },
+        {
+            "CODIGO": "sce",
+            "DESCRIPCION": "SAL CON ESPECIAS SALERO X 200 GRS.",
+            "UNIDADES": 6,
+            "id": 84
+        },
+        {
+            "CODIGO": "sch",
+            "DESCRIPCION": "SAL CON HIERBAS SALERO X 200 GRS.",
+            "UNIDADES": 6,
+            "id": 85
+        },
+        {
+            "CODIGO": "sca",
+            "DESCRIPCION": "SABORIZANTE CARNES 30 X 25 GRS.",
+            "UNIDADES": 30,
+            "id": 86
+        },
+        {
+            "CODIGO": "sav",
+            "DESCRIPCION": "SABORIZANTE AVES 30 X 25 GRS.",
+            "UNIDADES": 30,
+            "id": 87
+        },
+        {
+            "CODIGO": "spe",
+            "DESCRIPCION": "SABORIZANTE PESCADOS 30 X 25 GRS.",
+            "UNIDADES": 30,
+            "id": 88
+        },
+        {
+            "CODIGO": "sar",
+            "DESCRIPCION": "SABORIZANTES PARA ARROZ X 25 GRS.",
+            "UNIDADES": 30,
+            "id": 89
+        },
+        {
+            "CODIGO": "stg",
+            "DESCRIPCION": "SABORIZANTE PARA TUCOS Y GUISOS X 25 GRS.",
+            "UNIDADES": 30,
+            "id": 90
+        },
+        {
+            "CODIGO": "spp",
+            "DESCRIPCION": "SABORIZANTE PARA PURE Y PASTAS X 25 GRS.",
+            "UNIDADES": 30,
+            "id": 91
+        },
+        {
+            "CODIGO": "va1",
+            "DESCRIPCION": "VINAGRE DE ALCOHOL X 1000 CC.",
+            "UNIDADES": 12,
+            "id": 92
+        },
+        {
+            "CODIGO": "va5",
+            "DESCRIPCION": "VINAGRE DE ALCOHOL X 500 CC.",
+            "UNIDADES": 12,
+            "id": 93
+        },
+        {
+            "CODIGO": "va3",
+            "DESCRIPCION": "VINAGRE DE ALCOHOL X 3000 CC.",
+            "UNIDADES": 2,
+            "id": 94
+        },
+        {
+            "CODIGO": "vv1",
+            "DESCRIPCION": "VINAGRE DE VINO X 1000 CC.",
+            "UNIDADES": 12,
+            "id": 95
+        },
+        {
+            "CODIGO": "vv5",
+            "DESCRIPCION": "VINAGRE DE VINO X 500 CC.",
+            "UNIDADES": 12,
+            "id": 96
+        },
+        {
+            "CODIGO": "vm1",
+            "DESCRIPCION": "VINAGRE DE MANZANA X 1000 CC.",
+            "UNIDADES": 12,
+            "id": 97
+        },
+        {
+            "CODIGO": "vm5",
+            "DESCRIPCION": "VINAGRE DE MANZANA X 500 CC.",
+            "UNIDADES": 12,
+            "id": 98
+        },
+        {
+            "CODIGO": "ss1",
+            "DESCRIPCION": "SALSA DE SOJA X 1000 CC.",
+            "id": 99
+        },
+        {
+            "CODIGO": "ss5",
+            "DESCRIPCION": "SALSA DE SOJA X 500 CC.",
+            "UNIDADES": 12,
+            "id": 100
+        },
+        {
+            "CODIGO": "ssp",
+            "DESCRIPCION": "SALSA DE SOJA PREMIUM X 250 CC.",
+            "UNIDADES": 12,
+            "id": 101
+        },
+        {
+            "CODIGO": "ssl",
+            "DESCRIPCION": "SALSA DE SOJA LIGHT X 250 CC.",
+            "UNIDADES": 12,
+            "id": 102
+        },
+        {
+            "CODIGO": "sap",
+            "DESCRIPCION": "SALSA DE AJI PICANTE X 375 GRS.",
+            "UNIDADES": 8,
+            "id": 103
+        },
+        {
+            "CODIGO": "sb",
+            "DESCRIPCION": "SALSA DE BARBACOA X 425 GRS.",
+            "UNIDADES": 8,
+            "id": 104
+        },
+        {
+            "CODIGO": "sc",
+            "DESCRIPCION": "SALSA CAESAR X 350 GRS.",
+            "UNIDADES": 8,
+            "id": 105
+        },
+        {
+            "CODIGO": "scl",
+            "DESCRIPCION": "SALSA CAESAR LIGHT X 360 GRS.",
+            "UNIDADES": 8,
+            "id": 106
+        },
+        {
+            "CODIGO": "sm",
+            "DESCRIPCION": "SALSA DE MOSTAZA CON MIEL X 400 GRS.",
+            "UNIDADES": 8,
+            "id": 107
+        },
+        {
+            "CODIGO": "schi",
+            "DESCRIPCION": "SALSA DE CHIMICHURRI X 380 GRS.",
+            "UNIDADES": 8,
+            "id": 108
+        },
+        {
+            "CODIGO": "sr",
+            "DESCRIPCION": "SALSA RANCH CON SEMILLAS X 360 GRS.",
+            "UNIDADES": 8,
+            "id": 109
+        },
+        {
+            "CODIGO": "srp",
+            "DESCRIPCION": "SALSA RANCH PICANTE X 360 GRS.",
+            "UNIDADES": 8,
+            "id": 110
+        },
+        {
+            "CODIGO": "sche",
+            "DESCRIPCION": "SALSA CHEDDAR X 360 GRS.",
+            "UNIDADES": 8,
+            "id": 111
+        },
+        {
+            "CODIGO": "sal",
+            "DESCRIPCION": "SALSA ALIOLI X 360 GRS.",
+            "UNIDADES": 8,
+            "id": 112
+        },
+        {
+            "CODIGO": "ss",
+            "DESCRIPCION": "SALSA SPICY X 360 GRS.",
+            "UNIDADES": 8,
+            "id": 113
+        },
+        {
+            "CODIGO": "si",
+            "DESCRIPCION": "SALSA INGLESA X 410 GRS.",
+            "UNIDADES": 8,
+            "id": 114
+        },
+        {
+            "CODIGO": "sp",
+            "DESCRIPCION": "SALSA PARMESANO X 360 GRS.",
+            "UNIDADES": 8,
+            "id": 115
+        },
+        {
+            "CODIGO": "k",
+            "DESCRIPCION": "KETCHUP X 420 GRS.",
+            "id": 116
+        },
+        {
+            "CODIGO": "ab",
+            "DESCRIPCION": "ACETO BALSAMICO PET X 250 CC.",
+            "UNIDADES": 6,
+            "id": 117
+        },
+        {
+            "CODIGO": "ao25",
+            "DESCRIPCION": "ACEITE DE OLIVA EXTRA VIRGEN X 250 CC.VIDRIO",
+            "UNIDADES": 12,
+            "id": 118
+        },
+        {
+            "CODIGO": "aov",
+            "DESCRIPCION": "ACEITE DE OLIVA EXTRA VIRGEN X 500 CC.VIDRIO",
+            "UNIDADES": 12,
+            "id": 119
+        },
+        {
+            "CODIGO": "aol",
+            "DESCRIPCION": "ACEITE DE OLIVA EXTRA VIRGEN X 500 CC.LATA",
+            "UNIDADES": 12,
+            "id": 120
+        },
+        {
+            "CODIGO": "ao1",
+            "DESCRIPCION": "ACEITE DE OLIVA EXTRA VIRGEN X 1000 CC.LATA",
+            "UNIDADES": 6,
+            "id": 121
+        },
+        {
+            "CODIGO": "jl5",
+            "DESCRIPCION": "JUGO DE LIMON X 500 CC.",
+            "UNIDADES": 12,
+            "id": 122
+        },
+        {
+            "CODIGO": "jl1",
+            "DESCRIPCION": "JUGO DE LIMON X 1000 CC.",
+            "UNIDADES": 6,
+            "id": 123
+        },
+        {
+            "CODIGO": "aec",
+            "DESCRIPCION": "ADEREZO P/ENSALADA LIGHT CLASICO X 500 ML.",
+            "UNIDADES": 6,
+            "id": 124
+        },
+        {
+            "CODIGO": "aen",
+            "DESCRIPCION": "ADEREZO P/ENSALADA LIGHT SABOR NARANJA/FRUTILLA X 500 ML.",
+            "UNIDADES": 6,
+            "id": 125
+        },
+        {
+            "CODIGO": "ap",
+            "DESCRIPCION": "ADOBO PARA PIZZA X 25 GRS.",
+            "UNIDADES": 15,
+            "id": 126
+        },
+        {
+            "CODIGO": "am50",
+            "DESCRIPCION": "AJI MOLIDO X 50 GRS.",
+            "UNIDADES": 20,
+            "id": 127
+        },
+        {
+            "CODIGO": "am25",
+            "DESCRIPCION": "AJI MOLIDO X 25 GRS.",
+            "UNIDADES": 30,
+            "id": 128
+        },
+        {
+            "CODIGO": "ad",
+            "DESCRIPCION": "AJO DESHIDRATADO EN POLVO X 25 GRS.",
+            "UNIDADES": 30,
+            "id": 129
+        },
+        {
+            "CODIGO": "a",
+            "DESCRIPCION": "ALBAHACA X 25 GRS.",
+            "UNIDADES": 15,
+            "id": 130
+        },
+        {
+            "CODIGO": "cd",
+            "DESCRIPCION": "CEBOLLA DESHIDRATADA ESCAMAS X 50 GRS.",
+            "UNIDADES": 20,
+            "id": 131
+        },
+        {
+            "CODIGO": "com",
+            "DESCRIPCION": "COMINO MOLIDO X 50 GRS.",
+            "UNIDADES": 20,
+            "id": 132
+        },
+        {
+            "CODIGO": "cchi",
+            "DESCRIPCION": "CONDIMENTO PARA CHIMICHURRI X 25 GRS.",
+            "UNIDADES": 20,
+            "id": 133
+        },
+        {
+            "CODIGO": "lt",
+            "DESCRIPCION": "LAUREL TRITURADO X 25 GRS.",
+            "UNIDADES": 30,
+            "id": 134
+        },
+        {
+            "CODIGO": "me",
+            "DESCRIPCION": "MEZCLA DE ESPECIAS X 25 GRS.",
+            "UNIDADES": 30,
+            "id": 135
+        },
+        {
+            "CODIGO": "nm",
+            "DESCRIPCION": "NUEZ MOSCADA MOLIDA X 25 GRS.",
+            "UNIDADES": 30,
+            "id": 136
+        },
+        {
+            "CODIGO": "o",
+            "DESCRIPCION": "OREGANO X 25 GRS.",
+            "UNIDADES": 15,
+            "id": 137
+        },
+        {
+            "CODIGO": "p",
+            "DESCRIPCION": "PEREJIL X 25 GRS.",
+            "UNIDADES": 15,
+            "id": 138
+        },
+        {
+            "CODIGO": "pim50",
+            "DESCRIPCION": "PIMENTON EXTRA X 50 GRS.",
+            "UNIDADES": 20,
+            "id": 139
+        },
+        {
+            "CODIGO": "pim25",
+            "DESCRIPCION": "PIMENTON X 25 GRS.",
+            "UNIDADES": 30,
+            "id": 140
+        },
+        {
+            "CODIGO": "pbg",
+            "DESCRIPCION": "PIMIENTA BLANCA GRANO X 50 GRS.",
+            "UNIDADES": 20,
+            "id": 141
+        },
+        {
+            "CODIGO": "pbm",
+            "DESCRIPCION": "PIMIENTA BLANCA MOLIDA X 25 GRS.",
+            "UNIDADES": 30,
+            "id": 142
+        },
+        {
+            "CODIGO": "png",
+            "DESCRIPCION": "PIMIENTA NEGRA GRANO X 50 GRS.",
+            "UNIDADES": 20,
+            "id": 143
+        },
+        {
+            "CODIGO": "pnm",
+            "DESCRIPCION": "PIMIENTA NEGRA MOLIDA X 25 GRS.",
+            "UNIDADES": 30,
+            "id": 144
+        },
+        {
+            "CODIGO": "psb",
+            "DESCRIPCION": "POLVO P/SALSA BLANCA X 40 GRS.",
+            "UNIDADES": 20,
+            "id": 145
+        },
+        {
+            "CODIGO": "pro",
+            "DESCRIPCION": "PROVENZAL X 25 GRS.",
+            "UNIDADES": 30,
+            "id": 146
+        },
+        {
+            "CODIGO": "r",
+            "DESCRIPCION": "ROMERO X 25 GRS.",
+            "UNIDADES": 15,
+            "id": 147
+        },
+        {
+            "CODIGO": "t",
+            "DESCRIPCION": "TOMILLO X 25 GRS.",
+            "UNIDADES": 15,
+            "id": 148
+        },
+        {
+            "CODIGO": "an",
+            "DESCRIPCION": "AZUCAR NEGRA (FANTASIA) X 250 GRS.",
+            "UNIDADES": 12,
+            "id": 149
+        },
+        {
+            "CODIGO": "ai",
+            "DESCRIPCION": "AZUCAR IMPALPABLE X 250 GRS.",
+            "UNIDADES": 12,
+            "id": 150
+        },
+        {
+            "CODIGO": "bs",
+            "DESCRIPCION": "BICARBONATO DE SODIO X 25 GRS.",
+            "UNIDADES": 30,
+            "id": 151
+        },
+        {
+            "CODIGO": "ph",
+            "DESCRIPCION": "POLVO PARA HORNEAR X 25 GRS.",
+            "id": 152
+        },
+        {
+            "CODIGO": "ea",
+            "DESCRIPCION": "ESENCIA ARTIFICIAL DE VAINILLA BOT. X 100 CC.",
+            "UNIDADES": 20,
+            "id": 153
+        },
+        {
+            "CODIGO": "pc",
+            "DESCRIPCION": "POLVO PARA PREPARAR CREMA CHANTILLY X 50 GRS.",
+            "UNIDADES": 12,
+            "id": 154
+        },
+        {
+            "CODIGO": "cm",
+            "DESCRIPCION": "CANELA MOLIDA X 30 GRS.",
+            "UNIDADES": 20,
+            "id": 155
+        },
+        {
+            "CODIGO": "cr",
+            "DESCRIPCION": "COCO RALLADO X 50 GRS.",
+            "UNIDADES": 20,
+            "id": 156
+        },
+        {
+            "CODIGO": "brc",
+            "DESCRIPCION": "BA\u00d1O REPOST. CHOC. X 150 GRS.",
+            "UNIDADES": 10,
+            "id": 157
+        },
+        {
+            "CODIGO": "scho",
+            "DESCRIPCION": "SALSA CHOCOLATE X 360 GRS.",
+            "UNIDADES": 6,
+            "id": 158
+        },
+        {
+            "CODIGO": "sf",
+            "DESCRIPCION": "SALSA DE FRUTILLA X 365 GRS.",
+            "UNIDADES": 6,
+            "id": 159
+        },
+        {
+            "CODIGO": "scar",
+            "DESCRIPCION": "SALSA DE CARAMELO X 375 GRS.",
+            "UNIDADES": 6,
+            "id": 160
+        },
+        {
+            "CODIGO": "bc",
+            "DESCRIPCION": "FUNDA BOLSA PARA FREEZER CHICAS X 20 UNID.",
+            "UNIDADES": 36,
+            "id": 161
+        },
+        {
+            "CODIGO": "bm",
+            "DESCRIPCION": "FUNDA BOLSA PARA FREEZER MEDIANAS X 15 UNID.",
+            "UNIDADES": 36,
+            "id": 162
+        },
+        {
+            "CODIGO": "bg",
+            "DESCRIPCION": "FUNDA BOLSA PARA FREEZER GRANDES X 8 UNID.",
+            "UNIDADES": 36,
+            "id": 163
+        },
+        {
+            "CODIGO": "spf",
+            "DESCRIPCION": "FUNDA SEPARADORES PARA FREEZER X 100 UNID.",
+            "UNIDADES": 36,
+            "id": 164
+        },
+        {
+            "CODIGO": "bv",
+            "DESCRIPCION": "FUNDA BOLSA PARA VEGETALES X 10 UNID.",
+            "UNIDADES": 36,
+            "id": 165
+        },
+        {
+            "CODIGO": "bh",
+            "DESCRIPCION": "FUNDA BOLSA PARA HORNO X 10 UNID.",
+            "UNIDADES": 36,
+            "id": 166
+        },
+        {
+            "CODIGO": "nada",
+            "DESCRIPCION": "ESTUCHE BOLSA P/FREEZER EXTRA-RESISTENTE MEDIANAS X 15 UNID.",
+            "UNIDADES": 12,
+            "id": 167
+        },
+        {
+            "CODIGO": "ra",
+            "DESCRIPCION": "ROLLO DE ALUMINIO POR 4 METROS",
+            "UNIDADES": 36,
+            "id": 168
+        },
+        {
+            "CODIGO": "rf10",
+            "DESCRIPCION": "ROLLO FILM ADHERENTE POR 10 METROS",
+            "UNIDADES": 24,
+            "id": 169
+        },
+        {
+            "CODIGO": "rpm",
+            "DESCRIPCION": "ROLLO PAPEL MANTECA POR 5 METROS",
+            "UNIDADES": 24,
+            "id": 170
+        },
+        {
+            "CODIGO": "nada",
+            "DESCRIPCION": "BOLSA T\u00c9RMICA CAPACIDAD 15 LITROS",
+            "UNIDADES": 12,
+            "id": 171
+        },
+        {
+            "CODIGO": "ras",
+            "DESCRIPCION": "ROLLO PAPEL ALUMINIO X 5 METROS C/SIERRA",
+            "UNIDADES": 24,
+            "id": 172
+        },
+        {
+            "CODIGO": "rfs",
+            "DESCRIPCION": "ROLLO FILM ADHERENTE X 15 METROS C/SIERRA",
+            "UNIDADES": 24,
+            "id": 173
+        },
+        {
+            "CODIGO": "nada",
+            "DESCRIPCION": "ROLLO DE ALUMINIO X 25 MTS.",
+            "UNIDADES": 24,
+            "id": 174
+        },
+        {
+            "CODIGO": "ct",
+            "DESCRIPCION": "CUBRETODO X 10 UNID.",
+            "UNIDADES": 16,
+            "id": 175
+        },
+        {
+            "CODIGO": "frp",
+            "DESCRIPCION": "FREEZER PACK 15 BOLSAS MEDIANAS Y 60 SEP",
+            "UNIDADES": 36,
+            "id": 176
+        },
+        {
+            "CODIGO": "bd",
+            "DESCRIPCION": "BOLSA CIERRE ZIPPER DISNEY X 5 UNID.",
+            "UNIDADES": 24,
+            "id": 177
+        },
+        {
+            "CODIGO": "rf30",
+            "DESCRIPCION": "ROLLO FILM ADHERENTE X 30 METROS",
+            "UNIDADES": 24,
+            "id": 178
+        },
+        {
+            "CODIGO": "br45x10",
+            "DESCRIPCION": "BOLSA DE RESIDUOS DE 45X60X10 UNIDADES",
+            "UNIDADES": 100,
+            "id": 179
+        },
+        {
+            "CODIGO": "br45x30",
+            "DESCRIPCION": "BOLSA DE RESIDUOS DE 45X60X30 UNIDADES",
+            "UNIDADES": 50,
+            "id": 180
+        },
+        {
+            "CODIGO": "br60",
+            "DESCRIPCION": "BOLSA DE RESIDUOS DE 60X90X10 UNIDADES",
+            "UNIDADES": 40,
+            "id": 181
+        },
+        {
+            "CODIGO": "br80",
+            "DESCRIPCION": "BOLSA DE RESIDUOS DE 80X100X10 UNIDADES",
+            "UNIDADES": 20,
+            "id": 182
+        },
+        {
+            "CODIGO": "nada",
+            "DESCRIPCION": "SEPARADORES P/FREEZER X 1000 UNID",
+            "UNIDADES": 20,
+            "id": 183
+        },
+        {
+            "CODIGO": "nada",
+            "DESCRIPCION": "BOLSAS P/FREEZER MEDIANAS X 50 UNID",
+            "UNIDADES": 30,
+            "id": 184
+        },
+        {
+            "CODIGO": "rf25",
+            "DESCRIPCION": "ROLLO FILM ADHERENTE X 250 METROS",
+            "UNIDADES": 16,
+            "id": 185
+        }
+    ]
+}

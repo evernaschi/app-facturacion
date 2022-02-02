@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button, TextInput, ScrollView, Pressable, Animated } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, ScrollView, Animated, Pressable } from 'react-native';
 import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown'
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -55,8 +55,8 @@ export default App;
 
 const SeleccionClienteScreen = ({ navigation }) => {
 	const fileClientes = require('./assets/data.json');
-	const [selectedItem, setSelectedItem] = useState(null);
 	let clientes = fileClientes.infoClientes
+	const [selectedItem, setSelectedItem] = useState(null);
 	clientes = clientes.map((item, index) => ({ ...item, id: index, title:item.Cliente }))
 	return (
 		<View style={styles.containerCentered}>
@@ -157,10 +157,16 @@ const SeleccionDireccionScreen = ({ navigation, route }) => {
 };
 
 const FacturacionScreen = ({ navigation, route }) => {
+	const fileProductos = require('./assets/infoProductos.json');
+	let productos = fileProductos.infoProductos
 	const [count, setCount] = useState(1)
 	const [filas, setFilas] = useState([0])
 	const eliminarFila = (key) => {
 		setFilas(filas.filter(i => i !== key));
+	}
+	const addFila = () => {
+		setFilas([...filas, count]);
+		setCount(count + 1);
 	}
 	return (
 		<View style={styles.container}>
@@ -173,12 +179,18 @@ const FacturacionScreen = ({ navigation, route }) => {
 					<Text style={styles.centerText}>Direccion:</Text>
 					<Text style={[styles.centerText, styles.boldText]}>{route.params.direccion.title}</Text>
 				</View>
+				<View style={styles.containerCentered}>
+				<Button
+					title="Confirmar"
+					color="#36a854"
+					// onPress={ addFila }
+					/>
+				</View>
 				<Encabezado/>
-				{/* { filas.map((i) => <Fila key={i} index={i} eliminarFilaCallback={eliminarFila}/>) } */}
 				<GestureHandlerRootView>
 				{ filas.map((i) =>
-					<GmailStyleSwipeableRow key={i}>
-					<Fila key={i} index={i} eliminarFilaCallback={eliminarFila}/>
+					<GmailStyleSwipeableRow key={i} index={i} eliminarFilaCallback={eliminarFila}>
+					<Fila key={i} index={i} eliminarFilaCallback={eliminarFila} addFilaCallback={addFila} productos={productos}/>
 					</GmailStyleSwipeableRow>
 				)}
 				</GestureHandlerRootView>
@@ -186,10 +198,7 @@ const FacturacionScreen = ({ navigation, route }) => {
 				<Button
 					title="Nueva Fila"
 					color="#0099ff"
-					onPress={ () => {
-						setFilas([...filas, count]);
-						setCount(count + 1);
-					}}
+					onPress={ addFila }
 					/>
 				</View>
 			</ScrollView>
@@ -214,6 +223,8 @@ const Fila = (props) => {
 	const [text, onChangeText] = useState("");
 	const [cajas, onChangeCajas] = useState("");
 	const [unidades, onChangeUnidades] = useState("");
+	let secondTextInput = useRef();
+	let thirdTextInput = useRef();
 	return (
 	<View style={[styles.row, {borderTopColor:"black",borderBottomWidth:1}]}>
 		<TextInput
@@ -221,6 +232,8 @@ const Fila = (props) => {
 			onChangeText={onChangeText}
 			placeholder="Ingrese Producto"
 			value={text}
+			onSubmitEditing={() => { secondTextInput.focus(); }}
+			autoFocus = {true}
 		/>
 		<TextInput
 			style={styles.celda}
@@ -228,6 +241,8 @@ const Fila = (props) => {
 			value={cajas}
 			placeholder="Cajas"
 			keyboardType="numeric"
+			onSubmitEditing={() => { thirdTextInput.focus(); }}
+			ref={(input) => { secondTextInput = input; }}
 			/>
 		<TextInput
 			style={styles.celda}
@@ -235,20 +250,17 @@ const Fila = (props) => {
 			value={unidades}
 			placeholder="Cant"
 			keyboardType="numeric"
-			/>
+			ref={(input) => { thirdTextInput = input; }}
+			onSubmitEditing={ props.addFilaCallback }
+		/>
 		<View style={{flexDirection:"row", justifyContent:"flex-end", flex:1.3}}>
-		<AnimatedIcon
-			name="delete-forever"
-			size={30}
-			color="red"
-			style={[styles.actionIcon, {paddingTop:8}]}
+			<AnimatedIcon
+				name="delete-forever"
+				size={30}
+				color="red"
+				style={[styles.actionIcon, {paddingTop:8}]}
 			/>
 		</View>
-		{/* <View style={[styles.row, styles.celda, {paddingVertical:0}]}> */}
-			{/* <Pressable onPress={() => {props.eliminarFilaCallback(props.index)}} style={styles.deleteButton}>
-				<Text style={{alignSelf:"center", color:"white", fontWeight: 'bold', fontSize:20}}>X</Text>
-			</Pressable> */}
-		{/* </View> */}
 	</View>
 	)
 }
@@ -270,7 +282,6 @@ const styles = StyleSheet.create({
     container: {
 		flex: 1,
 		backgroundColor: '#fff',
-		// padding: 20,
 	},
 	boldText: {
 		fontWeight: 'bold'
@@ -290,29 +301,23 @@ const styles = StyleSheet.create({
 		textAlignVertical:"center",
 	},
 	row: {
-		// borderWidth: 1,
-		// margin:5,
-		// borderRadius:5,
 		overflow: "hidden",
 		flexDirection: "row",
 		flexWrap: "nowrap",
-		// alignContent: "stretch",
 		backgroundColor: 'white',
 		justifyContent:"space-between",
-	},
-	deleteButton: {
-		position: 'absolute',
-		right:0,
-		top:0,
-		bottom:0,
-		width:25,
-		backgroundColor:"red",
-		color:"white",
-		textAlign:"center",
-		justifyContent:"center",
 	},
 	actionIcon: {
 		width: 30,
 		marginHorizontal: 10
 	  },
+	button: {
+		alignItems: 'center',
+		justifyContent: 'center',
+		paddingVertical: 12,
+		paddingHorizontal: 32,
+		borderRadius: 4,
+		elevation: 3,
+		backgroundColor: 'black',
+	},
 	});
