@@ -238,9 +238,6 @@
             "id": 40
         },
         {
-            "id": 41
-        },
-        {
             "CODIGO": "fls",
             "DESCRIPCION": "SAL FINA LAVADA SECA X 25 K",
             "UNIDADES": 1,
@@ -928,7 +925,7 @@
         },
         {
             "CODIGO": "brc",
-            "DESCRIPCION": "BA\u00d1O REPOST. CHOC. X 150 GRS.",
+            "DESCRIPCION": "BAÑO REPOST. CHOC. X 150 GRS.",
             "UNIDADES": 10,
             "id": 157
         },

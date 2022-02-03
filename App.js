@@ -1,15 +1,17 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button, TextInput, ScrollView, Animated, Pressable } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, ScrollView, Animated, SafeAreaView } from 'react-native';
 import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown'
 import { useState, useRef } from "react";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { Dropdown } from 'react-native-element-dropdown';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const AnimatedIcon = Animated.createAnimatedComponent(Icon);
 
-import GmailStyleSwipeableRow from './swipable/GmailStyleSwipeableRow';
+import GmailStyleSwipeableRow from './components/GmailStyleSwipeableRow';
 
 const App = () => {
 	const Stack = createNativeStackNavigator();
@@ -27,25 +29,25 @@ const App = () => {
 				headerTitleAlign: 'center',
 			}}
 		>
-			<Stack.Screen
+		<Stack.Screen
 			name="SeleccionCliente"
 			component={SeleccionClienteScreen}
 			options={{
 				title: 'Seleccionar Cliente',
 			}}
-			/>
-			<Stack.Screen name="SeleccionDireccion"
+		/>
+		<Stack.Screen name="SeleccionDireccion"
 			component={SeleccionDireccionScreen}
 			options={{
 				title: 'Seleccionar Dirección',
 			}}
-			/>
-			<Stack.Screen name="Facturacion"
+		/>
+		<Stack.Screen name="Facturacion"
 			component={FacturacionScreen}
 			options={{
 				title: 'Facturacion',
 			}}
-			/>
+		/>
 		</Stack.Navigator>
 	</NavigationContainer>
 	);
@@ -58,7 +60,7 @@ const SeleccionClienteScreen = ({ navigation }) => {
 	let clientes = fileClientes.infoClientes
 	const [selectedItem, setSelectedItem] = useState(null);
 	clientes = clientes.map((item, index) => ({ ...item, id: index, title:item.Cliente }))
-	return (
+	  return (
 		<View style={styles.containerCentered}>
 			<View style={styles.section}>
 				{/* <StatusBar style="auto" /> */}
@@ -77,6 +79,14 @@ const SeleccionClienteScreen = ({ navigation }) => {
 							borderColor: "#000000",
 							width: "100%",
 						}
+					}}
+					rightButtonsContainerStyle={{
+						borderRadius: 10,
+						right: 5,
+						top: 8,
+						height: 30,
+						alignSelfs: "center",
+						backgroundColor: "#fff"
 					}}
 					onSelectItem={setSelectedItem}
 					dataSet={clientes}
@@ -134,6 +144,14 @@ const SeleccionDireccionScreen = ({ navigation, route }) => {
 							width: "100%",
 						}
 					}}
+					rightButtonsContainerStyle={{
+						borderRadius: 10,
+						right: 5,
+						top: 8,
+						height: 30,
+						alignSelfs: "center",
+						backgroundColor: "#fff"
+					}}
 					initialValue={initialValue} // or just '2'
 					onSelectItem={setSelectedItem}
 					dataSet={direcciones}
@@ -159,6 +177,7 @@ const SeleccionDireccionScreen = ({ navigation, route }) => {
 const FacturacionScreen = ({ navigation, route }) => {
 	const fileProductos = require('./assets/infoProductos.json');
 	let productos = fileProductos.infoProductos
+	productos = productos.map((item, index) => ({ ...item, value: index, label:item.DESCRIPCION }))
 	const [count, setCount] = useState(1)
 	const [filas, setFilas] = useState([0])
 	const eliminarFila = (key) => {
@@ -170,7 +189,7 @@ const FacturacionScreen = ({ navigation, route }) => {
 	}
 	return (
 		<View style={styles.container}>
-			<ScrollView >
+			<ScrollView>
 				<View style={[styles.row, styles.centerText, styles.top]}>
 					<Text style={styles.centerText}>Cliente:</Text>
 					<Text style={[styles.centerText, styles.boldText]}>{route.params.cliente.title}</Text>
@@ -183,7 +202,7 @@ const FacturacionScreen = ({ navigation, route }) => {
 				<Button
 					title="Confirmar"
 					color="#36a854"
-					// onPress={ addFila }
+					// onPress={ confirmar }
 					/>
 				</View>
 				<Encabezado/>
@@ -208,7 +227,7 @@ const FacturacionScreen = ({ navigation, route }) => {
 
 const Encabezado = () => {
 	return (
-	<View style={[styles.row, {borderTopColor:"black",borderBottomWidth:1}]}>
+	<View style={[styles.row, {borderBottomWidth:1}]}>
 			<Text style={[styles.celda, styles.boldText, {flex:3}]}>PRODUCTO</Text>
 			<Text style={[styles.celda, styles.boldText]}>CAJAS</Text>
 			<Text style={[styles.celda, styles.boldText]}>UNID</Text>
@@ -225,15 +244,39 @@ const Fila = (props) => {
 	const [unidades, onChangeUnidades] = useState("");
 	let secondTextInput = useRef();
 	let thirdTextInput = useRef();
+	const [selectedItem, setSelectedItem] = useState(null);
+    const [value, setValue] = useState(null);
+
+	const data = [
+		{ label: 'Item 1', value: '1' },
+		{ label: 'Item 2', value: '2' },
+		{ label: 'Item 3', value: '3' },
+		{ label: 'Item 4', value: '4' },
+		{ label: 'Item 5', value: '5' },
+		{ label: 'Item 6', value: '6' },
+		{ label: 'Item 7', value: '7' },
+		{ label: 'Item 8', value: '8' },
+	  ];
 	return (
-	<View style={[styles.row, {borderTopColor:"black",borderBottomWidth:1}]}>
-		<TextInput
-			style={[styles.celda, {flex:3}]}
-			onChangeText={onChangeText}
-			placeholder="Ingrese Producto"
-			value={text}
-			onSubmitEditing={() => { secondTextInput.focus(); }}
-			autoFocus = {true}
+	<View style={[styles.row, {borderBottomWidth:1}]}>
+		<Dropdown
+			style={[styles.dropdown, {flex:3}]}
+			placeholderStyle={styles.placeholderStyle}
+			selectedTextStyle={styles.selectedTextStyle}
+			inputSearchStyle={styles.inputSearchStyle}
+			iconStyle={styles.iconStyle}
+			data={props.productos}
+			search
+			maxHeight={300}
+			labelField="label"
+			valueField="value"
+			placeholder="Select item"
+			searchPlaceholder="Search..."
+			value={value}
+			onChange={item => { setValue(item.value); }}
+			onBlur={() => { secondTextInput.focus(); }}
+			dropdownPosition="top"
+			renderRightIcon={() => (null)}
 		/>
 		<TextInput
 			style={styles.celda}
@@ -301,8 +344,8 @@ const styles = StyleSheet.create({
 		textAlignVertical:"center",
 	},
 	row: {
-		overflow: "hidden",
 		flexDirection: "row",
+		overflow: "hidden",
 		flexWrap: "nowrap",
 		backgroundColor: 'white',
 		justifyContent:"space-between",
@@ -311,13 +354,25 @@ const styles = StyleSheet.create({
 		width: 30,
 		marginHorizontal: 10
 	  },
-	button: {
-		alignItems: 'center',
-		justifyContent: 'center',
-		paddingVertical: 12,
-		paddingHorizontal: 32,
-		borderRadius: 4,
-		elevation: 3,
-		backgroundColor: 'black',
-	},
+
+	  dropdown: {
+	  },
+	  icon: {
+		marginRight: 5,
+	  },
+	  placeholderStyle: {
+		fontSize: 14,
+	  },
+	  selectedTextStyle: {
+		fontSize: 14,
+	  },
+	  iconStyle: {
+		width: 20,
+		height: 20,
+	  },
+	  inputSearchStyle: {
+		height: 40,
+		fontSize: 16,
+	  },
+  
 	});
