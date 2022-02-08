@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button, TextInput, ScrollView, Animated, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, ScrollView, Animated, Pressable, Alert } from 'react-native';
 import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown'
 import { useState, useRef, createRef, forwardRef, Component } from "react";
 import { NavigationContainer } from '@react-navigation/native';
@@ -7,6 +7,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Dropdown } from 'react-native-element-dropdown';
+import * as FileSystem from 'expo-file-system';
+import isEqual from 'lodash/isEqual';
+import isEmpty from 'lodash/isEmpty';
 
 const AnimatedIcon = Animated.createAnimatedComponent(Icon);
 
@@ -28,6 +31,13 @@ const App = () => {
                 headerTitleAlign: 'center',
             }}
         >
+        <Stack.Screen
+            name="Home"
+            component={Home}
+            options={{
+                title: 'Home',
+            }}
+        />
         <Stack.Screen
             name="SeleccionCliente"
             component={SeleccionClienteScreen}
@@ -53,6 +63,36 @@ const App = () => {
 }
 
 export default App;
+
+const Home = ({ navigation }) => {
+    return (
+        <View style={[styles.containerCentered]}>
+            <View style={[styles.row]}>
+                <Pressable onPress={() => navigation.navigate('SeleccionCliente')}>
+                    <AnimatedIcon
+                    name="note-add"
+                    size={90}
+                    color="#0099ff"
+                    />
+                </Pressable>
+                <Pressable onPress={null}>
+                    <AnimatedIcon
+                    name="format-list-bulleted"
+                    size={90}
+                    color="#0099ff"
+                    />
+                </Pressable>
+                <Pressable onPress={null}>
+                    <AnimatedIcon
+                    name="share"
+                    size={90}
+                    color="#0099ff"
+                    />
+                </Pressable>
+            </View>
+        </View>   
+    )
+}
 
 const SeleccionClienteScreen = ({ navigation }) => {
     const fileClientes = require('./assets/data.json');
@@ -110,7 +150,8 @@ const SeleccionClienteScreen = ({ navigation }) => {
 
 const SeleccionDireccionScreen = ({ navigation, route }) => {
     const [selectedItem, setSelectedItem] = useState(null);
-    let direcciones = route.params.cliente.Direccion
+    const cliente = route.params.cliente
+    let direcciones = cliente.Direccion
     direcciones = (Array.isArray(direcciones)) ? direcciones : [direcciones];
     direcciones = direcciones.map(function(obj, index){
         let rObj = {};
@@ -124,7 +165,7 @@ const SeleccionDireccionScreen = ({ navigation, route }) => {
     return (
         <View style={styles.containerCentered}>
             <Text style={styles.centerText}>Seleccionar Dirección para el Cliente:</Text>
-            <Text style={[styles.centerText, styles.boldText]}>{route.params.cliente.title}</Text>
+            <Text style={[styles.centerText, styles.boldText]}>{cliente.title}</Text>
             <View style={styles.section}>
                 {/* <StatusBar style="auto" /> */}
                 <AutocompleteDropdown
@@ -162,7 +203,7 @@ const SeleccionDireccionScreen = ({ navigation, route }) => {
                     color="#0099ff"
                     onPress={() => {
                         if (selectedItem){
-                            navigation.navigate('Facturacion', { cliente:route.params.cliente, direccion: selectedItem })
+                            navigation.navigate('Facturacion', { cliente:cliente, direccion: selectedItem })
                         } else {
                             alert("Seleccione una Direccion");
                         }
@@ -176,8 +217,10 @@ const SeleccionDireccionScreen = ({ navigation, route }) => {
 const FacturacionScreen = ({ navigation, route }) => {
     const fileProductos = require('./assets/infoProductos.json');
     let productos = fileProductos.infoProductos
+    const cliente = route.params.cliente
     const [count, setCount] = useState(0)
-    const [dataFila, setDataFila] = useState({[count.toString()]:{cajas: "",unidades: "",value: "",producto: null,}})
+    const emptyFila = {cajas: "",unidades: "",value: "",producto: null,}
+    const [dataFila, setDataFila] = useState({[count.toString()]:emptyFila})
 
     const eliminarFila = (key) => {
         const newDataFila = { ...dataFila };
@@ -194,7 +237,7 @@ const FacturacionScreen = ({ navigation, route }) => {
         setCount(newCount)
         const newDataFila = {
             ...dataFila,
-            [newCount.toString()] : {cajas: "",unidades: "",value: "",producto: null,} 
+            [newCount.toString()] : emptyFila 
         };
         setDataFila(newDataFila)
     }
@@ -207,8 +250,40 @@ const FacturacionScreen = ({ navigation, route }) => {
         }
     }
 
-    const confirmar = () => {
-        console.log("Confirmar", dataFila)
+    const confirmar = async () => {
+        var filteredFilas = Object.fromEntries(Object.entries(dataFila).filter(([k,v]) => !isEqual(v,emptyFila)));
+        console.log("Confirmar  1")
+        if (isEmpty(filteredFilas)){
+            Alert.alert("Alerta", "Complete al menos una fila")
+            return false
+        }
+        const uri = FileSystem.documentDirectory;
+
+        // Formo el nombre del archivo con: Cliente + Direccion + Fecha
+        let nameCliente = cliente.Cliente.trim()
+        if (nameCliente.length > 15){
+            nameCliente = nameCliente.substring(0, 15)
+        }
+
+        // Para la direccion tomo solo lo que está antes de la coma, es decir la calle
+        // La direccion completa se guarda en el archivo
+        let nameDireccion = cliente.Direccion.split(",")[0]
+        nameDireccion = nameDireccion.replace(/\s+/g, '')
+        if (nameDireccion.length > 30){
+            nameDireccion = nameDireccion.substring(0, 30)
+        }
+
+        var today  = new Date();
+        let fecha = today.toLocaleDateString() + "-" + today.toLocaleTimeString()
+        fecha = fecha.replace(/\//g, "-")
+
+        let fileName = "/" + nameCliente + "_" + nameDireccion + "_" + fecha + ".json"
+
+        FileSystem.writeAsStringAsync(uri + fileName, JSON.stringify(filteredFilas))
+        FileSystem.readAsStringAsync(uri + fileName).then(data => console.log(data))
+        // Gets all files inside of selected directory
+        const files = await FileSystem.readDirectoryAsync(uri);
+        alert(`Files inside ${uri}:\n\n${JSON.stringify(files)}`);
     }
 
     let filasElementos = []
