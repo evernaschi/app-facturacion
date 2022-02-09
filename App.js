@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Button, TextInput, ScrollView, Animated, Pressable, Alert } from 'react-native';
 import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown'
-import { useState, useRef, createRef, forwardRef, Component } from "react";
+import { useState, useRef, createRef, forwardRef, Component, useEffect } from "react";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -10,12 +10,14 @@ import { Dropdown } from 'react-native-element-dropdown';
 import * as FileSystem from 'expo-file-system';
 import isEqual from 'lodash/isEqual';
 import isEmpty from 'lodash/isEmpty';
+import GmailStyleSwipeableRow from './components/GmailStyleSwipeableRow';
+import FilaEditable, { FilaLectura } from './components/Filas';
 
 const AnimatedIcon = Animated.createAnimatedComponent(Icon);
 
-import GmailStyleSwipeableRow from './components/GmailStyleSwipeableRow';
-
 const App = () => {
+    require('intl')
+    require('intl/locale-data/jsonp/es.js');
     const Stack = createNativeStackNavigator();
     return (
     <NavigationContainer>
@@ -33,9 +35,16 @@ const App = () => {
         >
         <Stack.Screen
             name="Home"
-            component={Home}
+            component={HomeScreen}
             options={{
                 title: 'Home',
+            }}
+        />
+        <Stack.Screen
+            name="ListarFacturas"
+            component={ListarFacturasScreen}
+            options={{
+                title: 'Facturas',
             }}
         />
         <Stack.Screen
@@ -64,28 +73,28 @@ const App = () => {
 
 export default App;
 
-const Home = ({ navigation }) => {
+const HomeScreen = ({ navigation }) => {
     return (
         <View style={[styles.containerCentered]}>
-            <View style={[styles.row]}>
+            <View style={[{alignItems:"center", justifyContent:"space-between", flex:1}]}>
                 <Pressable onPress={() => navigation.navigate('SeleccionCliente')}>
                     <AnimatedIcon
                     name="note-add"
-                    size={90}
+                    size={120}
                     color="#0099ff"
                     />
                 </Pressable>
-                <Pressable onPress={null}>
+                <Pressable onPress={() => navigation.navigate('ListarFacturas')}>
                     <AnimatedIcon
                     name="format-list-bulleted"
-                    size={90}
+                    size={120}
                     color="#0099ff"
                     />
                 </Pressable>
                 <Pressable onPress={null}>
                     <AnimatedIcon
                     name="share"
-                    size={90}
+                    size={120}
                     color="#0099ff"
                     />
                 </Pressable>
@@ -218,6 +227,7 @@ const FacturacionScreen = ({ navigation, route }) => {
     const fileProductos = require('./assets/infoProductos.json');
     let productos = fileProductos.infoProductos
     const cliente = route.params.cliente
+    const direccion = route.params.direccion
     const [count, setCount] = useState(0)
     const emptyFila = {cajas: "",unidades: "",value: "",producto: null,}
     const [dataFila, setDataFila] = useState({[count.toString()]:emptyFila})
@@ -252,19 +262,18 @@ const FacturacionScreen = ({ navigation, route }) => {
 
     const confirmar = async () => {
         var filteredFilas = Object.fromEntries(Object.entries(dataFila).filter(([k,v]) => !isEqual(v,emptyFila)));
-        console.log("Confirmar  1")
         if (isEmpty(filteredFilas)){
             Alert.alert("Alerta", "Complete al menos una fila")
             return false
         }
         const uri = FileSystem.documentDirectory;
-
+        
         // Formo el nombre del archivo con: Cliente + Direccion + Fecha
-        let nameCliente = cliente.Cliente.trim()
+        let nameCliente = cliente.Cliente.replace(/\s+/g, '')
         if (nameCliente.length > 15){
             nameCliente = nameCliente.substring(0, 15)
         }
-
+        
         // Para la direccion tomo solo lo que está antes de la coma, es decir la calle
         // La direccion completa se guarda en el archivo
         let nameDireccion = cliente.Direccion.split(",")[0]
@@ -272,18 +281,17 @@ const FacturacionScreen = ({ navigation, route }) => {
         if (nameDireccion.length > 30){
             nameDireccion = nameDireccion.substring(0, 30)
         }
-
         var today  = new Date();
-        let fecha = today.toLocaleDateString() + "-" + today.toLocaleTimeString()
+        let fecha = today.toLocaleString().replace(/\//g, "-").replace(/ /g, "_")
+        // let fecha = today.toLocaleDateString() + "-" + today.toLocaleTimeString()
         fecha = fecha.replace(/\//g, "-")
-
+        
         let fileName = "/" + nameCliente + "_" + nameDireccion + "_" + fecha + ".json"
-
+        
+        filteredFilas = {...filteredFilas, "cliente": cliente, "direccion": direccion, fecha:today}
         FileSystem.writeAsStringAsync(uri + fileName, JSON.stringify(filteredFilas))
-        FileSystem.readAsStringAsync(uri + fileName).then(data => console.log(data))
-        // Gets all files inside of selected directory
-        const files = await FileSystem.readDirectoryAsync(uri);
-        alert(`Files inside ${uri}:\n\n${JSON.stringify(files)}`);
+        alert("Factura creada exitosamente")
+        navigation.navigate('Home')
     }
 
     let filasElementos = []
@@ -291,7 +299,7 @@ const FacturacionScreen = ({ navigation, route }) => {
         if (fila) {
             filasElementos.push(
             <GmailStyleSwipeableRow key={i} index={i} eliminarFilaCallback={eliminarFila}>
-            <Fila
+            <FilaEditable
             value={fila.value}
             cajas={fila.cajas}
             unidades={fila.unidades}
@@ -313,11 +321,11 @@ const FacturacionScreen = ({ navigation, route }) => {
             <ScrollView>
                 <View style={[styles.row, styles.centerText, styles.top]}>
                     <Text style={styles.centerText}>Cliente:</Text>
-                    <Text style={[styles.centerText, styles.boldText]}>{route.params.cliente.title}</Text>
+                    <Text style={[styles.centerText, styles.boldText]}>{cliente.title}</Text>
                 </View>
                 <View style={[styles.row, styles.centerText]}>
                     <Text style={styles.centerText}>Direccion:</Text>
-                    <Text style={[styles.centerText, styles.boldText]}>{route.params.direccion.title}</Text>
+                    <Text style={[styles.centerText, styles.boldText]}>{direccion.title}</Text>
                 </View>
                 <View style={styles.containerCentered}>
                 <Button
@@ -356,103 +364,82 @@ const Encabezado = () => {
     )
 }
 
-class Fila extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            cajas: props.cajas,
-            unidades: props.unidades,
-            value: props.value,
-            producto: props.producto,
-        };
-        this.secondTextInput = createRef();
-        this.thirdTextInput = createRef();
-    }
-
-    componentDidUpdate = (prevProps, prevState) => {
-        if (this.state != prevState) {
-            let data = this.state
-            this.props.actualizarDataFilaCallback(this.props.index, data)
-        }
-    }
-
-    calcularUnidades = () => {
-        if (this.state.producto && this.state.producto.UNIDADES){
-            let newUnidades = this.state.cajas * this.state.producto.UNIDADES
-            this.setState({unidades:newUnidades.toString()});
-        }
-    }
-
-    calcularCajas = () => {
-        if (this.state.producto && this.state.producto.UNIDADES){
-            let newUnidades = this.state.unidades / this.state.producto.UNIDADES
-            newUnidades = Math.round(newUnidades * 100) / 100
-            // Redondeo a 2 decimales
-            this.setState({cajas:newUnidades.toString()});
-        }
-        this.props.addFilaCallback(this.props.index)
-    }
-
-    render() {
-        return (
-            <View style={[styles.row, {borderBottomWidth:1}]}>
-            <Dropdown
-                style={[styles.dropdown, {flex:3}]}
-                placeholderStyle={styles.placeholderStyle}
-                selectedTextStyle={styles.selectedTextStyle}
-                inputSearchStyle={styles.inputSearchStyle}
-                iconStyle={styles.iconStyle}
-                data={this.props.productos}
-                search
-                maxHeight={300}
-                labelField="DESCRIPCION"
-                valueField="id"
-                placeholder="Producto"
-                searchPlaceholder="Buscar..."
-                value={this.state.value}
-                onChange={item => { this.setState({value: item.id, producto:item});}}
-                onBlur={() => { this.secondTextInput.focus(); }}
-                dropdownPosition="top"
-                renderRightIcon={() => (null)}
-            />
-            <TextInput
-                style={styles.celda}
-                onChangeText={item => this.setState({cajas: item}) }
-                value={this.state.cajas}
-                placeholder="Cajas"
-                keyboardType="numeric"
-                ref={(input) => { this.secondTextInput = input; }}
-                onBlur={this.calcularUnidades }
-                onSubmitEditing={() => {
-                    if (this.state.producto.UNIDADES){
-                        let newUnidades = this.state.cajas * this.state.producto.UNIDADES
-                        this.setState({unidades:newUnidades.toString()});
-                    }
-                    this.thirdTextInput.focus();
-                }}
-            />
-            <TextInput
-                style={styles.celda}
-                onChangeText={item => this.setState({unidades: item}) }
-                value={this.state.unidades}
-                placeholder="Unid"
-                keyboardType="numeric"
-                ref={(input) => { this.thirdTextInput = input; }}
-                onBlur={this.calcularCajas}
-                onSubmitEditing={this.calcularCajas}
-            />
-            <View style={{flexDirection:"row", justifyContent:"flex-end", flex:1.3}}>
-                <AnimatedIcon
-                    name="delete-forever"
-                    size={30}
-                    color="red"
-                    style={[styles.actionIcon, {paddingTop:8}]}
-                />
+const EncabezadoLectura = () => {
+    return (
+    <View style={[styles.row, {borderBottomWidth:1}]}>
+            <Text style={[styles.celda, styles.boldText]}>CLIENTE</Text>
+            <Text style={[styles.celda, styles.boldText]}>DIRECCION</Text>
+            <Text style={[styles.celda, styles.boldText]}>FECHA</Text>
+            <View style={{flexDirection:"row", justifyContent:"flex-end"}}>
+                <AnimatedIcon name="search" size={30} color="black" style={[styles.actionIcon, {paddingTop:5}]}/>
             </View>
+    </View>
+    )
+}
+
+class ListarFacturasScreen extends Component{
+    constructor() {
+        super()
+        this.uri = FileSystem.documentDirectory;
+        this.state = { filasElementos: {} }
+    }
+
+    deleteFile = (fileName) => {
+        const newFilasElementos = this.state.filasElementos
+        if (newFilasElementos.hasOwnProperty(fileName)){
+            FileSystem.deleteAsync(this.uri + fileName)
+            delete newFilasElementos[fileName]
+            this.setState({ filasElementos: newFilasElementos });
+        }
+    }
+
+    leerFiles = async () => {
+        let uri = this.uri
+        const newFiles = await FileSystem.readDirectoryAsync(uri);
+        let newFilasElementos = []
+        let i = 0
+        for (let fileName of newFiles){    
+            FileSystem.readAsStringAsync(uri + fileName).then(file => {
+                file = JSON.parse(file)
+                if (file && file.hasOwnProperty("cliente") && file.hasOwnProperty("direccion")) {
+                    newFilasElementos[fileName] = 
+                        <GmailStyleSwipeableRow key={i} index={i} eliminarFilaCallback={() => this.deleteFile(fileName)}>
+                            <FilaLectura
+                            cliente={file.cliente.title}
+                            direccion={file.direccion.title}
+                            fecha={file.fecha}
+                            index={i}
+                            key={i}
+                            />
+                        </GmailStyleSwipeableRow>
+                    i++
+                    if (i == newFiles.length){
+                        this.setState({ filasElementos: newFilasElementos });
+                        return (newFilasElementos)
+                    }
+                }
+            }).catch(() => alert("No se encontro " + uri + fileName))
+        }
+    };
+
+    async componentDidMount() {
+        await this.leerFiles(); // Using await to get the result of async func
+    }
+    
+    render() {
+        return(
+        <View style={styles.container}>
+            <ScrollView>
+                <EncabezadoLectura/>
+                <GestureHandlerRootView>
+                {Object.values(this.state.filasElementos)}
+                </GestureHandlerRootView>
+            </ScrollView>
         </View>
-        );
+        )
     }
 }
+
 
 const styles = StyleSheet.create({
     centerText: {
@@ -499,27 +486,6 @@ const styles = StyleSheet.create({
     actionIcon: {
         width: 30,
         marginHorizontal: 10
-      },
-      dropdown: {
-      },
-      icon: {
-        marginRight: 5,
-      },
-      placeholderStyle: {
-        fontSize: 14,
-        color:"darkgrey",
     },
-    selectedTextStyle: {
-        fontSize: 14,
-        color:"black",
-      },
-      iconStyle: {
-        width: 20,
-        height: 20,
-      },
-      inputSearchStyle: {
-        height: 40,
-        fontSize: 16,
-      },
 
-    });
+});
