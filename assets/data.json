@@ -3,14 +3,12 @@
         {
             "CUIT": 30711087326,
             "Cliente": "Abasel",
-            "Descuentos": "Rosental",
             "Direccion": "Santa Fe 1080 - Rosario Norte, Santa Fe",
             "id": 1
         },
         {
             "CUIT": 27236676388,
             "Cliente": "Alberici Marcela",
-            "Descuentos": "Descuento 4 y 13,6",
             "Direccion": "Crespo 2278 - Rosario Sud, Santa Fe",
             "id": 2
         },
@@ -55,7 +53,6 @@
         {
             "CUIT": 20281996453,
             "Cliente": "Barbisano Mauricio",
-            "Descuentos": "Descuento 4 y 13,6",
             "Direccion": [
                 "Juan Jose Paso 5862 - Rosario Norte, Santa Fe",
                 "Zona Rural 1 - Bouquet, Santa Fe"
@@ -81,7 +78,6 @@
         {
             "CUIT": 27235136827,
             "Cliente": "Cassinerio Flavia",
-            "Descuentos": "Descuento 4 y 13,6",
             "Direccion": "Crespo 2905 - Rosario Sud, Santa Fe",
             "id": 10
         },
@@ -97,7 +93,6 @@
         {
             "CUIT": 23174600309,
             "Cliente": "Cerquetella Marcelo",
-            "Descuentos": "Descuento 4 y 13,6",
             "Direccion": [
                 "Sorrento 840 - Rosario Norte, Santa Fe",
                 "Laprida 1640 - Rosario Sud, Santa Fe"
@@ -107,14 +102,12 @@
         {
             "CUIT": 27058193394,
             "Cliente": "Chitarroni Esther",
-            "Descuentos": "Descuento 4 y 13,6",
             "Direccion": "Pellegrini 623 - Rosario Sud, Santa Fe",
             "id": 13
         },
         {
             "CUIT": 30526133885,
             "Cliente": "David Rosental e Hijos S.A.C.I.",
-            "Descuentos": "Rosental",
             "Direccion": [
                 "Mendoza 8833 - Rosario Sud, Santa Fe",
                 "Avenida 3 Y Calle 133 0 - Villa Gesell, Buenos Aires",
@@ -185,7 +178,6 @@
         {
             "CUIT": 20210408534,
             "Cliente": "Distribuidora Aguilar",
-            "Descuentos": "Descuento 4 y 13,6",
             "Direccion": [
                 "Av.Provincias Unidas (Bis) 1158 - Rosario Norte, Santa Fe",
                 "Formosa 344 Piso:BIS - Rosario Norte, Santa Fe",
@@ -196,7 +188,6 @@
         {
             "CUIT": 30689214114,
             "Cliente": "El Delfin Blanco S.A.",
-            "Descuentos": "Descuento 0",
             "Direccion": [
                 "Cafferata 401 - Rosario Norte, Santa Fe",
                 "L N Alem 3165 - Rosario, Santa Fe",
@@ -224,7 +215,6 @@
         {
             "CUIT": 30520739625,
             "Cliente": "La Gallega Sup. S.A.",
-            "Descuentos": "La Gallega",
             "Direccion": [
                 "Bv. Oro\u00f1o 245 Piso:1 - Rosario Norte, Santa Fe",
                 "Alberdi 465 - Rosario Norte, Santa Fe",
@@ -253,7 +243,6 @@
         {
             "CUIT": 30541618232,
             "Cliente": "La Reina S.A.",
-            "Descuentos": "La Reina",
             "Direccion": [
                 "San Martin 3419 - Rosario Sud, Santa Fe",
                 "Bv. Oro\u00f1o 3478 - Rosario Sud, Santa Fe",
@@ -277,7 +266,6 @@
         {
             "CUIT": 30578587515,
             "Cliente": "Lucio Di Santo S.A.",
-            "Descuentos": "Di Santo",
             "Direccion": [
                 "Av. 25 De Mayo Bis 1810 - Rosario Norte, Santa Fe",
                 "Bolivia 3810 - Santa Fe, Santa Fe",
@@ -365,7 +353,6 @@
         {
             "CUIT": 20078412640,
             "Cliente": "Reynoso Sebastian",
-            "Descuentos": "Descuento 4 y 13,6",
             "Direccion": "Viamonte 158 - Granadero Baigorria, Santa Fe",
             "id": 33
         },
@@ -382,7 +369,6 @@
         {
             "CUIT": 30714642797,
             "Cliente": "SELECT FRUT S.R.L. ",
-            "Descuentos": "Descuento 0",
             "Direccion": [
                 "San Juan 1754 - Rosario Norte, Santa Fe",
                 "Martin Rodriguez 15 Piso:BIS - Rosario Norte, Santa Fe",
@@ -393,7 +379,6 @@
         {
             "CUIT": 30530994801,
             "Cliente": "Sindicato de Trabajadores Municipales",
-            "Descuentos": "Descuento 4 y 13,6",
             "Direccion": [
                 "Entre Rios 1242 - Rosario Sud, Santa Fe",
                 "Manuel De La Plaza 0 - Agua De Oro, C\u00f3rdoba",
@@ -409,14 +394,12 @@
         {
             "CUIT": 30710781253,
             "Cliente": "Super Gloria S.R.L.",
-            "Descuentos": "Descuento 4 y 13,6",
             "Direccion": "Juan Jose Paso 8104 - Rosario Norte, Santa Fe",
             "id": 37
         },
         {
             "CUIT": 30711116601,
             "Cliente": "Waikiki S.A.",
-            "Descuentos": "Descuento 0",
             "Direccion": [
                 "San Luis 3889 - Rosario Norte, Santa Fe",
                 "Ov Lagos 1401 - Rosario Sud, Santa Fe"
