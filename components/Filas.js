@@ -1,8 +1,9 @@
 import { StyleSheet, View, Text, TextInput, Animated } from 'react-native';
-import { createRef, Component } from "react";
+import { createRef, Component, useState, useEffect } from "react";
 import { Dropdown } from 'react-native-element-dropdown';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 const AnimatedIcon = Animated.createAnimatedComponent(Icon);
+import Checkbox from 'expo-checkbox';
 
 export default class FilaEditable extends Component {
         constructor(props) {
@@ -103,16 +104,30 @@ export default class FilaEditable extends Component {
 }
 
 export const FilaLectura = (props) => {
+    // TODO: falta que el botón de lupa permita ver y editar un pedido
+    const [isChecked, setIsChecked] = useState(props.isChecked);
+    useEffect(() =>{
+        setIsChecked(props.isChecked)
+    }, [props.isChecked])
     let date = new Date(props.fecha)
+
+    const onChangeChecked = (newIsChecked) => {
+        setIsChecked(newIsChecked);
+        props.actualizarDataFilaCallback(props.index, {'isChecked':newIsChecked})
+    }
+
     return (
         <View style={[styles.row, {borderBottomWidth:1}]}>
+            <View style={{alignItems: 'center', flexDirection:"column", justifyContent:"space-around"}}>
+                <Checkbox style={[{marginHorizontal:1}]} value={isChecked} onValueChange={onChangeChecked} color={isChecked ? '#0099ff' : undefined}/>
+            </View>
             <Text style={styles.celda}>
                 {props.cliente}
             </Text>
             <Text style={styles.celda}>
                 {props.direccion}
             </Text>
-            <Text style={styles.celda}>
+            <Text style={styles.celda, {flex:0.5}}>
                 {date.toLocaleString()}
             </Text>
             <View style={{flexDirection:"row", justifyContent:"flex-end"}}>

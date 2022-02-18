@@ -6,12 +6,13 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { Dropdown } from 'react-native-element-dropdown';
 import * as FileSystem from 'expo-file-system';
 import isEqual from 'lodash/isEqual';
 import isEmpty from 'lodash/isEmpty';
 import GmailStyleSwipeableRow from './components/GmailStyleSwipeableRow';
 import FilaEditable, { FilaLectura } from './components/Filas';
+import Checkbox from 'expo-checkbox';
+import * as Sharing from 'expo-sharing';
 
 const AnimatedIcon = Animated.createAnimatedComponent(Icon);
 
@@ -76,7 +77,7 @@ export default App;
 const HomeScreen = ({ navigation }) => {
     return (
         <View style={[styles.containerCentered]}>
-            <View style={[{alignItems:"center", justifyContent:"space-between", flex:1}]}>
+            <View style={[{alignItems:"center", justifyContent:"space-around", flex:1}]}>
                 <Pressable onPress={() => navigation.navigate('SeleccionCliente')}>
                     <AnimatedIcon
                     name="note-add"
@@ -87,13 +88,6 @@ const HomeScreen = ({ navigation }) => {
                 <Pressable onPress={() => navigation.navigate('ListarFacturas')}>
                     <AnimatedIcon
                     name="format-list-bulleted"
-                    size={120}
-                    color="#0099ff"
-                    />
-                </Pressable>
-                <Pressable onPress={null}>
-                    <AnimatedIcon
-                    name="share"
                     size={120}
                     color="#0099ff"
                     />
@@ -241,7 +235,7 @@ const FacturacionScreen = ({ navigation, route }) => {
     }
 
     const addFila = (indice=false) => {
-        const maxIndex = Object.entries(dataFila).reduce((a, b) => a[1] > b[1] ? a : b)[0]
+        const maxIndex = !isEmpty(dataFila) ? Object.entries(dataFila).reduce((a, b) => a[1] > b[1] ? a : b)[0] : 0
         if (indice && (indice) != maxIndex){return}
         let newCount = count+1
         setCount(newCount)
@@ -276,14 +270,13 @@ const FacturacionScreen = ({ navigation, route }) => {
         
         // Para la direccion tomo solo lo que está antes de la coma, es decir la calle
         // La direccion completa se guarda en el archivo
-        let nameDireccion = cliente.Direccion.split(",")[0]
+        let nameDireccion = direccion.title.split(",")[0]
         nameDireccion = nameDireccion.replace(/\s+/g, '')
         if (nameDireccion.length > 30){
             nameDireccion = nameDireccion.substring(0, 30)
         }
         var today  = new Date();
         let fecha = today.toLocaleString().replace(/\//g, "-").replace(/ /g, "_")
-        // let fecha = today.toLocaleDateString() + "-" + today.toLocaleTimeString()
         fecha = fecha.replace(/\//g, "-")
         
         let fileName = "/" + nameCliente + "_" + nameDireccion + "_" + fecha + ".json"
@@ -365,11 +358,15 @@ const Encabezado = () => {
 }
 
 const EncabezadoLectura = () => {
+    const [isChecked, setChecked] = useState(false);
     return (
     <View style={[styles.row, {borderBottomWidth:1}]}>
+            <View style={{alignItems: 'center', flexDirection:"column", justifyContent:"space-around"}}>
+                <Checkbox style={[{marginHorizontal:1}]} value={isChecked} onValueChange={setChecked} color={isChecked ? '#0099ff' : undefined}/>
+            </View>
             <Text style={[styles.celda, styles.boldText]}>CLIENTE</Text>
             <Text style={[styles.celda, styles.boldText]}>DIRECCION</Text>
-            <Text style={[styles.celda, styles.boldText]}>FECHA</Text>
+            <Text style={[styles.celda, styles.boldText, {flex:0.5}]}>FECHA</Text>
             <View style={{flexDirection:"row", justifyContent:"flex-end"}}>
                 <AnimatedIcon name="search" size={30} color="black" style={[styles.actionIcon, {paddingTop:5}]}/>
             </View>
@@ -377,69 +374,116 @@ const EncabezadoLectura = () => {
     )
 }
 
-class ListarFacturasScreen extends Component{
-    constructor() {
-        super()
-        this.uri = FileSystem.documentDirectory;
-        this.state = { filasElementos: {} }
-    }
+const ListarFacturasScreen = () => {
+    const [isChecked, setIsChecked] = useState(false)
+    const [dataFila, setDataFila] = useState({})
+    let uri = FileSystem.documentDirectory
 
-    deleteFile = (fileName) => {
-        const newFilasElementos = this.state.filasElementos
-        if (newFilasElementos.hasOwnProperty(fileName)){
-            FileSystem.deleteAsync(this.uri + fileName)
-            delete newFilasElementos[fileName]
-            this.setState({ filasElementos: newFilasElementos });
+    const deleteFile = (index) => {
+        const newDataFila = {... dataFila}
+        if (newDataFila.hasOwnProperty(index)){
+            const fileName = newDataFila[index].fileName
+            FileSystem.deleteAsync(uri + fileName)
+            delete newDataFila[index]
+            setDataFila(newDataFila);
         }
     }
 
-    leerFiles = async () => {
-        let uri = this.uri
+    const leerFiles = async () => {
         const newFiles = await FileSystem.readDirectoryAsync(uri);
-        let newFilasElementos = []
+        let newDataFila = { ...dataFila };
         let i = 0
         for (let fileName of newFiles){    
             FileSystem.readAsStringAsync(uri + fileName).then(file => {
                 file = JSON.parse(file)
                 if (file && file.hasOwnProperty("cliente") && file.hasOwnProperty("direccion")) {
-                    newFilasElementos[fileName] = 
-                        <GmailStyleSwipeableRow key={i} index={i} eliminarFilaCallback={() => this.deleteFile(fileName)}>
-                            <FilaLectura
-                            cliente={file.cliente.title}
-                            direccion={file.direccion.title}
-                            fecha={file.fecha}
-                            index={i}
-                            key={i}
-                            />
-                        </GmailStyleSwipeableRow>
+                    newDataFila[i.toString()] = {'file':file, 'isChecked':false, 'fileName':fileName}
                     i++
-                    if (i == newFiles.length){
-                        this.setState({ filasElementos: newFilasElementos });
-                        return (newFilasElementos)
+                    if (i >= newFiles.length){
+                        setDataFila(newDataFila);
                     }
                 }
             }).catch(() => alert("No se encontro " + uri + fileName))
         }
     };
 
-    async componentDidMount() {
-        await this.leerFiles(); // Using await to get the result of async func
+    const enviar = ()  => {
+        // TODO: permitir enviar mas de un archivo, quizas en un zip
+        let archivosSeleccionados = Object.fromEntries(Object.entries(dataFila).filter(([k,v]) => v['isChecked']));
+        if (isEmpty(archivosSeleccionados)){
+            Alert.alert("Alerta", "Seleccione al menos un archivo")
+            return false
+        }
+        Alert.alert("Alerta", "Por ahora solo se puede enviar de a 1 archivo")
+        let fullPath = uri + Object.values(archivosSeleccionados)[0].fileName
+        Sharing.shareAsync(fullPath)
     }
     
-    render() {
-        return(
-        <View style={styles.container}>
-            <ScrollView>
-                <EncabezadoLectura/>
-                <GestureHandlerRootView>
-                {Object.values(this.state.filasElementos)}
-                </GestureHandlerRootView>
-            </ScrollView>
-        </View>
-        )
+    useEffect(() =>{
+        leerFiles()
+    }, [])
+    
+    const actualizarDataFila = (index, data) => {
+        const newDataFila = { ...dataFila };
+        if (newDataFila[index]){
+            let fila = newDataFila[index]
+            for (const [key, value] of Object.entries(data)){
+                // Actualizo solo los atributos enviados
+                fila[key] = value
+            }
+            newDataFila[index] = fila
+            setDataFila(newDataFila)
+        }
     }
-}
 
+    let filasElementos = []
+    for (const [i, fila] of Object.entries(dataFila)) {
+        if (fila) {
+            let file = fila.file
+            filasElementos.push(
+            <GmailStyleSwipeableRow key={i} index={i} eliminarFilaCallback={() => deleteFile(i)}>
+                <FilaLectura
+                isChecked={isChecked}
+                cliente={file.cliente.title}
+                direccion={file.direccion.title}
+                actualizarDataFilaCallback={actualizarDataFila}
+                fecha={file.fecha}
+                index={i}
+                key={i}
+                />
+            </GmailStyleSwipeableRow>
+            )
+        }
+    }
+
+    return(
+    <View style={styles.container}>
+        <ScrollView>
+            <View style={styles.containerCentered}>
+                <Button
+                    title="Enviar"
+                    color="#36a854"
+                    onPress={ enviar }
+                />
+            </View>
+            <View style={[styles.row, {borderBottomWidth:1}]}>
+                <View style={{alignItems: 'center', flexDirection:"column", justifyContent:"space-around"}}>
+                    <Checkbox style={[{marginHorizontal:1}]} value={isChecked} onValueChange={setIsChecked} color={isChecked ? '#0099ff' : undefined}/>
+                </View>
+                <Text style={[styles.celda, styles.boldText]}>CLIENTE</Text>
+                <Text style={[styles.celda, styles.boldText]}>DIRECCION</Text>
+                <Text style={[styles.celda, styles.boldText, {flex:0.5}]}>FECHA</Text>
+                <View style={{flexDirection:"row", justifyContent:"flex-end"}}>
+                    <AnimatedIcon name="search" size={30} color="black" style={[styles.actionIcon, {paddingTop:5}]}/>
+                </View>
+            </View>
+            <GestureHandlerRootView>
+            {filasElementos}
+            </GestureHandlerRootView>
+        </ScrollView>
+    </View>
+    )
+}
 
 const styles = StyleSheet.create({
     centerText: {
