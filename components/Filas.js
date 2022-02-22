@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, TextInput, Animated } from 'react-native';
+import { StyleSheet, View, Text, TextInput, Animated, Pressable } from 'react-native';
 import { createRef, Component, useState, useEffect } from "react";
 import { Dropdown } from 'react-native-element-dropdown';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -63,6 +63,7 @@ export default class FilaEditable extends Component {
                 onBlur={() => { this.secondTextInput.focus(); }}
                 dropdownPosition="top"
                 renderRightIcon={() => (null)}
+                disable={!this.props.editable}
             />
             <TextInput
                 style={styles.celda}
@@ -79,6 +80,7 @@ export default class FilaEditable extends Component {
                     }
                     this.thirdTextInput.focus();
                 }}
+                editable={this.props.editable}
             />
             <TextInput
                 style={styles.celda}
@@ -89,6 +91,7 @@ export default class FilaEditable extends Component {
                 ref={(input) => { this.thirdTextInput = input; }}
                 onBlur={this.calcularCajas}
                 onSubmitEditing={this.calcularCajas}
+                editable={this.props.editable}
             />
             <View style={{flexDirection:"row", justifyContent:"flex-end", flex:1.3}}>
                 <AnimatedIcon
@@ -122,21 +125,23 @@ export const FilaLectura = (props) => {
                 <Checkbox style={[{marginHorizontal:1}]} value={isChecked} onValueChange={onChangeChecked} color={isChecked ? '#0099ff' : undefined}/>
             </View>
             <Text style={styles.celda}>
-                {props.cliente}
+                {props.cliente.title}
             </Text>
             <Text style={styles.celda}>
-                {props.direccion}
+                {props.direccion.title}
             </Text>
             <Text style={styles.celda, {flex:0.5}}>
                 {date.toLocaleString()}
             </Text>
             <View style={{flexDirection:"row", justifyContent:"flex-end"}}>
+                <Pressable onPress={() => props.navigation.navigation.navigate('Facturacion', { cliente:props.cliente, direccion: props.direccion, dataArchivo: props.filas })} >
                 <AnimatedIcon
                     name="search"
                     size={30}
                     color="#0099ff"
                     style={[styles.actionIcon, {paddingTop:8}]}
                 />
+                </Pressable>
             </View>
         </View>
     );
@@ -150,6 +155,7 @@ const styles = StyleSheet.create({
         flex:1,
         textAlign:"left",
         textAlignVertical:"center",
+        color:"black",
     },
     row: {
         flexDirection: "row",

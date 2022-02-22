@@ -220,13 +220,37 @@ const SeleccionDireccionScreen = ({ navigation, route }) => {
 const FacturacionScreen = ({ navigation, route }) => {
     const fileProductos = require('./assets/infoProductos.json');
     let productos = fileProductos.infoProductos
+    if (!route.params){alert("Faltan los parametros");navigation.navigate("Home");return(null)}
+    if (!route.params.cliente){alert("Falta el Cliente");navigation.navigate("Home");return(null)}
+    if (!route.params.direccion){alert("Falta la Dirección");navigation.navigate("Home");return(null)}
     const cliente = route.params.cliente
     const direccion = route.params.direccion
     const [count, setCount] = useState(0)
     const emptyFila = {cajas: "",unidades: "",value: "",producto: null,}
-    const [dataFila, setDataFila] = useState({[count.toString()]:emptyFila})
+    const [dataFila, setDataFila] = useState({})
+    const [filasElementos, setFilasElementos] = useState([])
+    const [editable, setEditable] = useState(true)
+
+    useEffect(() =>{
+        if (route.params.dataArchivo){
+            setDataFila(route.params.dataArchivo);
+            setCount(Object.keys(route.params.dataArchivo).length);
+            setEditable(false)
+        } else {
+            setDataFila({[count.toString()]:emptyFila});
+        }
+    }, [])
+
+
+    useEffect(() =>{
+        actualizarFilasElementos()
+    }, [dataFila])
 
     const eliminarFila = (key) => {
+        if (!editable){
+            Alert.alert("Advertencia", "No puede eliminar filas en modo lectura")
+            return false
+        }
         const newDataFila = { ...dataFila };
         if (newDataFila[key]){
             delete newDataFila[key]
@@ -281,32 +305,37 @@ const FacturacionScreen = ({ navigation, route }) => {
         
         let fileName = "/" + nameCliente + "_" + nameDireccion + "_" + fecha + ".json"
         
-        filteredFilas = {...filteredFilas, "cliente": cliente, "direccion": direccion, fecha:today}
-        FileSystem.writeAsStringAsync(uri + fileName, JSON.stringify(filteredFilas))
-        alert("Factura creada exitosamente")
+        // filteredFilas = {...filteredFilas, "cliente": cliente, "direccion": direccion, fecha:today}
+        const archivo = {'filas': filteredFilas, "cliente": cliente, "direccion": direccion, fecha:today}
+        FileSystem.writeAsStringAsync(uri + fileName, JSON.stringify(archivo))
+        Alert.alert("Exito!", "Factura creada exitosamente")
         navigation.navigate('Home')
     }
 
-    let filasElementos = []
-    for (const [i, fila] of Object.entries(dataFila)) {
-        if (fila) {
-            filasElementos.push(
-            <GmailStyleSwipeableRow key={i} index={i} eliminarFilaCallback={eliminarFila}>
-            <FilaEditable
-            value={fila.value}
-            cajas={fila.cajas}
-            unidades={fila.unidades}
-            producto={fila.producto}
-            productos={productos}
-            index={i}
-            key={i}
-            actualizarDataFilaCallback={actualizarDataFila}
-            eliminarFilaCallback={eliminarFila}
-            addFilaCallback={addFila}
-            />
-            </GmailStyleSwipeableRow>
-            )
+    const actualizarFilasElementos = () => {
+        let newFilasElementos = []
+        for (const [i, fila] of Object.entries(dataFila)) {
+            if (fila) {
+                newFilasElementos.push(
+                <GmailStyleSwipeableRow key={i} index={i} eliminarFilaCallback={eliminarFila}>
+                <FilaEditable
+                value={fila.value}
+                cajas={fila.cajas}
+                unidades={fila.unidades}
+                producto={fila.producto}
+                productos={productos}
+                index={i}
+                key={i}
+                editable={editable}
+                actualizarDataFilaCallback={actualizarDataFila}
+                eliminarFilaCallback={eliminarFila}
+                addFilaCallback={addFila}
+                />
+                </GmailStyleSwipeableRow>
+                )
+            }
         }
+        setFilasElementos(newFilasElementos)
     }
 
     return (
@@ -374,7 +403,7 @@ const EncabezadoLectura = () => {
     )
 }
 
-const ListarFacturasScreen = () => {
+const ListarFacturasScreen = (navigation) => {
     const [isChecked, setIsChecked] = useState(false)
     const [dataFila, setDataFila] = useState({})
     let uri = FileSystem.documentDirectory
@@ -393,8 +422,9 @@ const ListarFacturasScreen = () => {
         const newFiles = await FileSystem.readDirectoryAsync(uri);
         let newDataFila = { ...dataFila };
         let i = 0
-        for (let fileName of newFiles){    
-            FileSystem.readAsStringAsync(uri + fileName).then(file => {
+        for (let fileName of newFiles){
+            FileSystem.readAsStringAsync(uri + fileName)
+            .then(file => {
                 file = JSON.parse(file)
                 if (file && file.hasOwnProperty("cliente") && file.hasOwnProperty("direccion")) {
                     newDataFila[i.toString()] = {'file':file, 'isChecked':false, 'fileName':fileName}
@@ -403,22 +433,28 @@ const ListarFacturasScreen = () => {
                         setDataFila(newDataFila);
                     }
                 }
-            }).catch(() => alert("No se encontro " + uri + fileName))
+            })
+            .catch(() => alert("No se encontro " + fileName))
         }
     };
 
-    const enviar = ()  => {
-        // TODO: permitir enviar mas de un archivo, quizas en un zip
+    const enviar = () => {
         let archivosSeleccionados = Object.fromEntries(Object.entries(dataFila).filter(([k,v]) => v['isChecked']));
         if (isEmpty(archivosSeleccionados)){
             Alert.alert("Alerta", "Seleccione al menos un archivo")
             return false
         }
-        Alert.alert("Alerta", "Por ahora solo se puede enviar de a 1 archivo")
-        let fullPath = uri + Object.values(archivosSeleccionados)[0].fileName
-        Sharing.shareAsync(fullPath)
+        var today  = new Date();
+        let fecha = today.toLocaleString().replace(/\//g, "-").replace(/ /g, "_")
+        fecha = fecha.replace(/\//g, "-")
+        
+        let fileName = "Pedido_Whisper_" + fecha + ".json"
+        
+        FileSystem.writeAsStringAsync(uri + fileName, JSON.stringify(archivosSeleccionados))
+        Sharing.shareAsync(uri + fileName)
+        .then(()=>{FileSystem.deleteAsync(uri + fileName)})
     }
-    
+
     useEffect(() =>{
         leerFiles()
     }, [])
@@ -433,7 +469,27 @@ const ListarFacturasScreen = () => {
             }
             newDataFila[index] = fila
             setDataFila(newDataFila)
+            let archivosSeleccionados = Object.entries(newDataFila).filter(([k,v]) => v['isChecked'])
+            let archivosNoSeleccionados = Object.entries(newDataFila).filter(([k,v]) => !v['isChecked'])
+            if (archivosSeleccionados.length == 0){
+                // Si se destildó un archivo y no hay archivos seleccionados el tilde global se destilda
+                setIsChecked(false)
+            }
+            else if (archivosNoSeleccionados.length == 0){
+                // Si se tildó un archivo y todos los archivos están seleccionados el tilde global se tilda
+                setIsChecked(true)
+            }
         }
+    }
+
+    const onChangeChecked = (newIsChecked) => {
+        const newDataFila = { ...dataFila };
+        Object.keys(newDataFila).map(function(key, index) {
+            let file = newDataFila[key]
+            file['isChecked'] = newIsChecked
+        })
+        setIsChecked(newIsChecked)
+        setDataFila(newDataFila)
     }
 
     let filasElementos = []
@@ -444,12 +500,14 @@ const ListarFacturasScreen = () => {
             <GmailStyleSwipeableRow key={i} index={i} eliminarFilaCallback={() => deleteFile(i)}>
                 <FilaLectura
                 isChecked={isChecked}
-                cliente={file.cliente.title}
-                direccion={file.direccion.title}
+                cliente={file.cliente}
+                direccion={file.direccion}
                 actualizarDataFilaCallback={actualizarDataFila}
                 fecha={file.fecha}
+                filas={file.filas}
                 index={i}
                 key={i}
+                navigation={navigation}
                 />
             </GmailStyleSwipeableRow>
             )
@@ -468,7 +526,7 @@ const ListarFacturasScreen = () => {
             </View>
             <View style={[styles.row, {borderBottomWidth:1}]}>
                 <View style={{alignItems: 'center', flexDirection:"column", justifyContent:"space-around"}}>
-                    <Checkbox style={[{marginHorizontal:1}]} value={isChecked} onValueChange={setIsChecked} color={isChecked ? '#0099ff' : undefined}/>
+                    <Checkbox style={[{marginHorizontal:1}]} value={isChecked} onValueChange={onChangeChecked} color={isChecked ? '#0099ff' : undefined}/>
                 </View>
                 <Text style={[styles.celda, styles.boldText]}>CLIENTE</Text>
                 <Text style={[styles.celda, styles.boldText]}>DIRECCION</Text>
