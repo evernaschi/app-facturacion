@@ -10,7 +10,7 @@ import * as FileSystem from 'expo-file-system';
 import isEqual from 'lodash/isEqual';
 import isEmpty from 'lodash/isEmpty';
 import GmailStyleSwipeableRow from './components/GmailStyleSwipeableRow';
-import FilaEditable, { FilaLectura } from './components/Filas';
+import FilaProducto, { FilaArchivo } from './components/Filas';
 import Checkbox from 'expo-checkbox';
 import * as Sharing from 'expo-sharing';
 
@@ -305,7 +305,6 @@ const FacturacionScreen = ({ navigation, route }) => {
         
         let fileName = "/" + nameCliente + "_" + nameDireccion + "_" + fecha + ".json"
         
-        // filteredFilas = {...filteredFilas, "cliente": cliente, "direccion": direccion, fecha:today}
         const archivo = {'filas': filteredFilas, "cliente": cliente, "direccion": direccion, fecha:today}
         FileSystem.writeAsStringAsync(uri + fileName, JSON.stringify(archivo))
         Alert.alert("Exito!", "Factura creada exitosamente")
@@ -318,12 +317,11 @@ const FacturacionScreen = ({ navigation, route }) => {
             if (fila) {
                 newFilasElementos.push(
                 <GmailStyleSwipeableRow key={i} index={i} eliminarFilaCallback={eliminarFila}>
-                <FilaEditable
+                <FilaProducto
                 value={fila.value}
                 cajas={fila.cajas}
                 unidades={fila.unidades}
                 producto={fila.producto}
-                productos={productos}
                 index={i}
                 key={i}
                 editable={editable}
@@ -498,7 +496,7 @@ const ListarFacturasScreen = (navigation) => {
             let file = fila.file
             filasElementos.push(
             <GmailStyleSwipeableRow key={i} index={i} eliminarFilaCallback={() => deleteFile(i)}>
-                <FilaLectura
+                <FilaArchivo
                 isChecked={isChecked}
                 cliente={file.cliente}
                 direccion={file.direccion}
@@ -526,11 +524,11 @@ const ListarFacturasScreen = (navigation) => {
             </View>
             <View style={[styles.row, {borderBottomWidth:1}]}>
                 <View style={{alignItems: 'center', flexDirection:"column", justifyContent:"space-around"}}>
-                    <Checkbox style={[{marginHorizontal:1}]} value={isChecked} onValueChange={onChangeChecked} color={isChecked ? '#0099ff' : undefined}/>
+                    <Checkbox style={[{marginLeft:5}]} value={isChecked} onValueChange={onChangeChecked} color={isChecked ? '#0099ff' : undefined}/>
                 </View>
                 <Text style={[styles.celda, styles.boldText]}>CLIENTE</Text>
                 <Text style={[styles.celda, styles.boldText]}>DIRECCION</Text>
-                <Text style={[styles.celda, styles.boldText, {flex:0.5}]}>FECHA</Text>
+                <Text style={[styles.celda, styles.boldText, {flex:0.6}]}>FECHA</Text>
                 <View style={{flexDirection:"row", justifyContent:"flex-end"}}>
                     <AnimatedIcon name="search" size={30} color="black" style={[styles.actionIcon, {paddingTop:5}]}/>
                 </View>

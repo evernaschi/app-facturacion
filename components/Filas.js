@@ -5,109 +5,101 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 const AnimatedIcon = Animated.createAnimatedComponent(Icon);
 import Checkbox from 'expo-checkbox';
 
-export default class FilaEditable extends Component {
-        constructor(props) {
-        super(props);
-        this.state = {
-            cajas: props.cajas,
-            unidades: props.unidades,
-            value: props.value,
-            producto: props.producto,
-        };
-        this.secondTextInput = createRef();
-        this.thirdTextInput = createRef();
-    }
+const FilaProducto = (props) => {
+    const [cajas, setCajas] = useState(props.cajas);
+    const [unidades, setUnidades] = useState(props.unidades);
+    const [value, setValue] = useState(props.value);
+    const [producto, setProducto] = useState(props.producto);
+    let secondTextInput = createRef();
+    let thirdTextInput = createRef();
+    const fileProductos = require('./../assets/infoProductos.json');
+    let productos2 = fileProductos.infoProductos
 
-    componentDidUpdate = (prevProps, prevState) => {
-        if (this.state != prevState) {
-            let data = this.state
-            this.props.actualizarDataFilaCallback(this.props.index, data)
+    useEffect(() =>{
+        let data = {cajas, unidades, value, producto}
+        props.actualizarDataFilaCallback(props.index, data)
+    }, [cajas, unidades, value, producto])
+
+    const calcularUnidades = () => {
+        if (producto && producto.UNIDADES){
+            let newUnidades = cajas * producto.UNIDADES
+            setUnidades(newUnidades.toString());
         }
     }
 
-    calcularUnidades = () => {
-        if (this.state.producto && this.state.producto.UNIDADES){
-            let newUnidades = this.state.cajas * this.state.producto.UNIDADES
-            this.setState({unidades:newUnidades.toString()});
-        }
-    }
-
-    calcularCajas = () => {
-        if (this.state.producto && this.state.producto.UNIDADES){
-            let newUnidades = this.state.unidades / this.state.producto.UNIDADES
+    const calcularCajas = () => {
+        if (producto && producto.UNIDADES){
+            let newUnidades = unidades / producto.UNIDADES
             newUnidades = Math.round(newUnidades * 100) / 100
             // Redondeo a 2 decimales
-            this.setState({cajas:newUnidades.toString()});
+            setCajas(newUnidades.toString());
         }
-        this.props.addFilaCallback(this.props.index)
+        props.addFilaCallback(props.index)
     }
 
-    render() {
-        return (
-            <View style={[styles.row, {borderBottomWidth:1}]}>
-            <Dropdown
-                style={[styles.dropdown, {flex:3}]}
-                placeholderStyle={styles.placeholderStyle}
-                selectedTextStyle={styles.selectedTextStyle}
-                inputSearchStyle={styles.inputSearchStyle}
-                iconStyle={styles.iconStyle}
-                data={this.props.productos}
-                search
-                maxHeight={300}
-                labelField="DESCRIPCION"
-                valueField="id"
-                placeholder="Producto"
-                searchPlaceholder="Buscar..."
-                value={this.state.value}
-                onChange={item => { this.setState({value: item.id, producto:item});}}
-                onBlur={() => { this.secondTextInput.focus(); }}
-                dropdownPosition="top"
-                renderRightIcon={() => (null)}
-                disable={!this.props.editable}
+    return (
+        <View style={[styles.row, {borderBottomWidth:1}]}>
+        <Dropdown
+            style={[styles.dropdown, {flex:3}]}
+            placeholderStyle={styles.placeholderStyle}
+            selectedTextStyle={styles.selectedTextStyle}
+            inputSearchStyle={styles.inputSearchStyle}
+            iconStyle={styles.iconStyle}
+            data={productos2}
+            search
+            maxHeight={300}
+            labelField="DESCRIPCION"
+            valueField="id"
+            placeholder="Producto"
+            searchPlaceholder="Buscar..."
+            value={value}
+            onChange={item => {setValue(item.id); setProducto(item); calcularUnidades()}}
+            onBlur={secondTextInput.focus}
+            dropdownPosition="top"
+            renderRightIcon={() => (null)}
+            disable={!props.editable}
+        />
+        <TextInput
+            style={styles.celda}
+            onChangeText={ setCajas }
+            value={cajas}
+            placeholder="Cajas"
+            keyboardType="numeric"
+            ref={(input) => { secondTextInput = input; }}
+            onBlur={calcularUnidades }
+            onSubmitEditing={() => {
+                calcularUnidades()
+                thirdTextInput.focus();
+            }}
+            editable={props.editable}
+        />
+        <TextInput
+            style={styles.celda}
+            onChangeText={item => setUnidades(item) }
+            value={unidades}
+            placeholder="Unid"
+            keyboardType="numeric"
+            ref={(input) => { thirdTextInput = input; }}
+            onBlur={calcularCajas}
+            onSubmitEditing={calcularCajas}
+            editable={props.editable}
+        />
+        <View style={{flexDirection:"row", justifyContent:"flex-end", flex:1.3}}>
+            <AnimatedIcon
+                name="delete-forever"
+                size={30}
+                color="red"
+                style={[styles.actionIcon, {paddingTop:8}]}
             />
-            <TextInput
-                style={styles.celda}
-                onChangeText={item => this.setState({cajas: item}) }
-                value={this.state.cajas}
-                placeholder="Cajas"
-                keyboardType="numeric"
-                ref={(input) => { this.secondTextInput = input; }}
-                onBlur={this.calcularUnidades }
-                onSubmitEditing={() => {
-                    if (this.state.producto.UNIDADES){
-                        let newUnidades = this.state.cajas * this.state.producto.UNIDADES
-                        this.setState({unidades:newUnidades.toString()});
-                    }
-                    this.thirdTextInput.focus();
-                }}
-                editable={this.props.editable}
-            />
-            <TextInput
-                style={styles.celda}
-                onChangeText={item => this.setState({unidades: item}) }
-                value={this.state.unidades}
-                placeholder="Unid"
-                keyboardType="numeric"
-                ref={(input) => { this.thirdTextInput = input; }}
-                onBlur={this.calcularCajas}
-                onSubmitEditing={this.calcularCajas}
-                editable={this.props.editable}
-            />
-            <View style={{flexDirection:"row", justifyContent:"flex-end", flex:1.3}}>
-                <AnimatedIcon
-                    name="delete-forever"
-                    size={30}
-                    color="red"
-                    style={[styles.actionIcon, {paddingTop:8}]}
-                />
-            </View>
         </View>
-        );
-    }
+    </View>
+    );
 }
 
-export const FilaLectura = (props) => {
-    // TODO: falta que el botón de lupa permita ver y editar un pedido
+export default FilaProducto
+
+export const FilaArchivo = (props) => {
+    // TODO: falta que el botón de lupa permita editar un pedido
     const [isChecked, setIsChecked] = useState(props.isChecked);
     useEffect(() =>{
         setIsChecked(props.isChecked)
@@ -122,7 +114,7 @@ export const FilaLectura = (props) => {
     return (
         <View style={[styles.row, {borderBottomWidth:1}]}>
             <View style={{alignItems: 'center', flexDirection:"column", justifyContent:"space-around"}}>
-                <Checkbox style={[{marginHorizontal:1}]} value={isChecked} onValueChange={onChangeChecked} color={isChecked ? '#0099ff' : undefined}/>
+                <Checkbox style={[{marginLeft:5}]} value={isChecked} onValueChange={onChangeChecked} color={isChecked ? '#0099ff' : undefined}/>
             </View>
             <Text style={styles.celda}>
                 {props.cliente.title}
@@ -130,7 +122,7 @@ export const FilaLectura = (props) => {
             <Text style={styles.celda}>
                 {props.direccion.title}
             </Text>
-            <Text style={styles.celda, {flex:0.5}}>
+            <Text style={styles.celda, {flex:0.6}}>
                 {date.toLocaleString()}
             </Text>
             <View style={{flexDirection:"row", justifyContent:"flex-end"}}>
