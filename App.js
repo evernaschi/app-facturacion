@@ -229,13 +229,12 @@ const FacturacionScreen = ({ navigation, route }) => {
     const emptyFila = {cajas: "",unidades: "",value: "",producto: null,}
     const [dataFila, setDataFila] = useState({})
     const [filasElementos, setFilasElementos] = useState([])
-    const [editable, setEditable] = useState(true)
+    const [editable, setEditable] = useState(route.params.soloLectura ? false : true)
 
     useEffect(() =>{
         if (route.params.dataArchivo){
             setDataFila(route.params.dataArchivo);
             setCount(Object.keys(route.params.dataArchivo).length);
-            setEditable(false)
         } else {
             setDataFila({[count.toString()]:emptyFila});
         }
@@ -244,7 +243,7 @@ const FacturacionScreen = ({ navigation, route }) => {
 
     useEffect(() =>{
         actualizarFilasElementos()
-    }, [dataFila])
+    }, [dataFila, editable])
 
     const eliminarFila = (key) => {
         if (!editable){
@@ -336,6 +335,33 @@ const FacturacionScreen = ({ navigation, route }) => {
         setFilasElementos(newFilasElementos)
     }
 
+    const buttonEditar = (
+        <Button
+        title="Editar"
+        color="#36a854"
+        onPress={ () => {
+            Alert.alert("Atención", "Edición habilitada")
+            setEditable(true)
+        }}
+        />
+    )
+
+    const buttonConfirmar = (
+        <Button
+        title={ route.params.dataArchivo ? "Sobreescribir" : "Confirmar"}
+        color="#36a854"
+        onPress={ null }
+        />
+    )
+
+    const buttonConfirmarNuevo = (
+        <Button
+        title={ "Nuevo Pedido" }
+        color="#36a854"
+        onPress={ confirmar }
+        />
+    )
+
     return (
         <View style={styles.container}>
             <ScrollView>
@@ -348,11 +374,7 @@ const FacturacionScreen = ({ navigation, route }) => {
                     <Text style={[styles.centerText, styles.boldText]}>{direccion.title}</Text>
                 </View>
                 <View style={styles.containerCentered}>
-                <Button
-                    title="Confirmar"
-                    color="#36a854"
-                    onPress={ confirmar }
-                    />
+                {editable ? buttonConfirmar : buttonEditar}
                 </View>
                 <Encabezado/>
                 <GestureHandlerRootView>

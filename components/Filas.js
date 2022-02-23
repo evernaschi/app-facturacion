@@ -126,7 +126,7 @@ export const FilaArchivo = (props) => {
                 {date.toLocaleString()}
             </Text>
             <View style={{flexDirection:"row", justifyContent:"flex-end"}}>
-                <Pressable onPress={() => props.navigation.navigation.navigate('Facturacion', { cliente:props.cliente, direccion: props.direccion, dataArchivo: props.filas })} >
+                <Pressable onPress={() => props.navigation.navigation.navigate('Facturacion', { cliente:props.cliente, direccion: props.direccion, dataArchivo: props.filas, soloLectura: true })} >
                 <AnimatedIcon
                     name="search"
                     size={30}
