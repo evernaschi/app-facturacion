@@ -104,7 +104,7 @@ export const FilaArchivo = (props) => {
     useEffect(() =>{
         setIsChecked(props.isChecked)
     }, [props.isChecked])
-    let date = new Date(props.fecha)
+    let date = new Date(props.file.fecha)
 
     const onChangeChecked = (newIsChecked) => {
         setIsChecked(newIsChecked);
@@ -117,22 +117,30 @@ export const FilaArchivo = (props) => {
                 <Checkbox style={[{marginLeft:5}]} value={isChecked} onValueChange={onChangeChecked} color={isChecked ? '#0099ff' : undefined}/>
             </View>
             <Text style={styles.celda}>
-                {props.cliente.title}
+                {props.file.cliente.title}
             </Text>
             <Text style={styles.celda}>
-                {props.direccion.title}
+                {props.file.direccion.title}
             </Text>
             <Text style={styles.celda, {flex:0.6}}>
                 {date.toLocaleString()}
             </Text>
             <View style={{flexDirection:"row", justifyContent:"flex-end"}}>
-                <Pressable onPress={() => props.navigation.navigation.navigate('Facturacion', { cliente:props.cliente, direccion: props.direccion, dataArchivo: props.filas, soloLectura: true })} >
-                <AnimatedIcon
-                    name="search"
-                    size={30}
-                    color="#0099ff"
-                    style={[styles.actionIcon, {paddingTop:8}]}
-                />
+                <Pressable onPress={() => 
+                    props.navigation.navigate('Facturacion', { 
+                        cliente:props.file.cliente, 
+                        direccion: props.file.direccion, 
+                        dataArchivo: props.file.filas, 
+                        nombreArchivo: props.nombreArchivo, 
+                        })
+                    } 
+                >
+                    <AnimatedIcon
+                        name="search"
+                        size={30}
+                        color="#0099ff"
+                        style={[styles.actionIcon, {paddingTop:8}]}
+                    />
                 </Pressable>
             </View>
         </View>

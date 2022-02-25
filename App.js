@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button, TextInput, ScrollView, Animated, Pressable, Alert } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, ScrollView, Animated, Pressable, Alert, addons } from 'react-native';
 import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown'
 import { useState, useRef, createRef, forwardRef, Component, useEffect } from "react";
 import { NavigationContainer } from '@react-navigation/native';
@@ -15,6 +15,11 @@ import Checkbox from 'expo-checkbox';
 import * as Sharing from 'expo-sharing';
 
 const AnimatedIcon = Animated.createAnimatedComponent(Icon);
+
+const uri = FileSystem.documentDirectory;
+
+const uriPedidosNuevos = uri + "PedidosNuevos/"
+const uriPedidosEnviados = uri + "PedidosEnviados/"
 
 const App = () => {
     require('intl')
@@ -219,7 +224,7 @@ const SeleccionDireccionScreen = ({ navigation, route }) => {
 
 const FacturacionScreen = ({ navigation, route }) => {
     const fileProductos = require('./assets/infoProductos.json');
-    let productos = fileProductos.infoProductos
+    // let productos = fileProductos.infoProductos
     if (!route.params){alert("Faltan los parametros");navigation.navigate("Home");return(null)}
     if (!route.params.cliente){alert("Falta el Cliente");navigation.navigate("Home");return(null)}
     if (!route.params.direccion){alert("Falta la Dirección");navigation.navigate("Home");return(null)}
@@ -229,7 +234,7 @@ const FacturacionScreen = ({ navigation, route }) => {
     const emptyFila = {cajas: "",unidades: "",value: "",producto: null,}
     const [dataFila, setDataFila] = useState({})
     const [filasElementos, setFilasElementos] = useState([])
-    const [editable, setEditable] = useState(route.params.soloLectura ? false : true)
+    const [editable, setEditable] = useState(route.params.nombreArchivo ? false : true)
 
     useEffect(() =>{
         if (route.params.dataArchivo){
@@ -258,6 +263,10 @@ const FacturacionScreen = ({ navigation, route }) => {
     }
 
     const addFila = (indice=false) => {
+        if (!editable){
+            Alert.alert("Advertencia", "No puede agregar filas en modo lectura")
+            return false
+        }
         const maxIndex = !isEmpty(dataFila) ? Object.entries(dataFila).reduce((a, b) => a[1] > b[1] ? a : b)[0] : 0
         if (indice && (indice) != maxIndex){return}
         let newCount = count+1
@@ -277,13 +286,13 @@ const FacturacionScreen = ({ navigation, route }) => {
         }
     }
 
-    const confirmar = async () => {
+    const confirmar = async (nombreArchivo = false) => {
         var filteredFilas = Object.fromEntries(Object.entries(dataFila).filter(([k,v]) => !isEqual(v,emptyFila)));
         if (isEmpty(filteredFilas)){
             Alert.alert("Alerta", "Complete al menos una fila")
             return false
         }
-        const uri = FileSystem.documentDirectory;
+        const uri = uriPedidosNuevos
         
         // Formo el nombre del archivo con: Cliente + Direccion + Fecha
         let nameCliente = cliente.Cliente.replace(/\s+/g, '')
@@ -304,6 +313,8 @@ const FacturacionScreen = ({ navigation, route }) => {
         
         let fileName = "/" + nameCliente + "_" + nameDireccion + "_" + fecha + ".json"
         
+        if (nombreArchivo) {fileName = nombreArchivo}
+
         const archivo = {'filas': filteredFilas, "cliente": cliente, "direccion": direccion, fecha:today}
         FileSystem.writeAsStringAsync(uri + fileName, JSON.stringify(archivo))
         Alert.alert("Exito!", "Factura creada exitosamente")
@@ -338,9 +349,9 @@ const FacturacionScreen = ({ navigation, route }) => {
     const buttonEditar = (
         <Button
         title="Editar"
-        color="#36a854"
+        color="#454034"
         onPress={ () => {
-            Alert.alert("Atención", "Edición habilitada")
+            // Alert.alert("Atención", "Edición habilitada")
             setEditable(true)
         }}
         />
@@ -348,17 +359,17 @@ const FacturacionScreen = ({ navigation, route }) => {
 
     const buttonConfirmar = (
         <Button
-        title={ route.params.dataArchivo ? "Sobreescribir" : "Confirmar"}
+        title={ route.params.nombreArchivo ? "Guardar Como Nuevo" : "Confirmar"}
         color="#36a854"
-        onPress={ null }
+        onPress={ () => confirmar() }
         />
     )
 
-    const buttonConfirmarNuevo = (
+    const buttonSobreescribir = (
         <Button
-        title={ "Nuevo Pedido" }
+        title={ "Sobreescribir" }
         color="#36a854"
-        onPress={ confirmar }
+        onPress={ () => confirmar(route.params.nombreArchivo) }
         />
     )
 
@@ -373,8 +384,10 @@ const FacturacionScreen = ({ navigation, route }) => {
                     <Text style={styles.centerText}>Direccion:</Text>
                     <Text style={[styles.centerText, styles.boldText]}>{direccion.title}</Text>
                 </View>
-                <View style={styles.containerCentered}>
-                {editable ? buttonConfirmar : buttonEditar}
+                {/* <View style={[styles.containerCentered, styles.row]}> */}
+                <View style={[styles.containerCentered, editable && route.params.nombreArchivo ? styles.row : null, {justifyContent:"space-around"}]}>
+                    {editable ? buttonConfirmar : buttonEditar}
+                    {editable && route.params.nombreArchivo ? buttonSobreescribir : null}
                 </View>
                 <Encabezado/>
                 <GestureHandlerRootView>
@@ -384,6 +397,7 @@ const FacturacionScreen = ({ navigation, route }) => {
                 <Button
                     title="Nueva Fila"
                     color="#0099ff"
+                    disabled={!editable}
                     // Hay que llamar a addFila así para que llegue sin argumentos
                     onPress={ () => addFila() }
                     />
@@ -423,24 +437,45 @@ const EncabezadoLectura = () => {
     )
 }
 
-const ListarFacturasScreen = (navigation) => {
+const ListarFacturasScreen = ({navigation, route}) => {
     const [isChecked, setIsChecked] = useState(false)
     const [dataFila, setDataFila] = useState({})
-    let uri = FileSystem.documentDirectory
+    const [filasElementos, setFilasElementos] = useState([])
+    let verEnviados = route.params && route.params.verEnviados ? true : false
+    let uri = !verEnviados ? uriPedidosNuevos : uriPedidosEnviados
 
     const deleteFile = (index) => {
         const newDataFila = {... dataFila}
         if (newDataFila.hasOwnProperty(index)){
             const fileName = newDataFila[index].fileName
-            FileSystem.deleteAsync(uri + fileName)
+            FileSystem.deleteAsync(uri + fileName).catch((err) => console.log("Error al borrar archivo", err))
             delete newDataFila[index]
             setDataFila(newDataFila);
         }
     }
 
+    const moveFile = (index, from, to) => {
+        const newDataFila = {... dataFila}
+        if (newDataFila.hasOwnProperty(index)){
+            FileSystem.moveAsync({
+                'from': from,
+                'to': to,
+            }).catch((err) => console.log("Error al mover archivo", err))
+            delete newDataFila[index]
+        setDataFila(newDataFila);
+        }
+    }
+
     const leerFiles = async () => {
-        const newFiles = await FileSystem.readDirectoryAsync(uri);
-        let newDataFila = { ...dataFila };
+        await FileSystem.readDirectoryAsync(uriPedidosNuevos).catch(()=> FileSystem.makeDirectoryAsync(uriPedidosNuevos))
+        await FileSystem.readDirectoryAsync(uriPedidosEnviados).catch(()=> FileSystem.makeDirectoryAsync(uriPedidosEnviados))
+    
+        const newFiles = await FileSystem.readDirectoryAsync(uri)
+            .catch(()=> FileSystem.makeDirectoryAsync(uri)
+            .catch((err) => console.log("err", err))
+            );
+        // let newDataFila = { ...dataFila };
+        let newDataFila = {  };
         let i = 0
         for (let fileName of newFiles){
             FileSystem.readAsStringAsync(uri + fileName)
@@ -469,15 +504,28 @@ const ListarFacturasScreen = (navigation) => {
         fecha = fecha.replace(/\//g, "-")
         
         let fileName = "Pedido_Whisper_" + fecha + ".json"
-        
         FileSystem.writeAsStringAsync(uri + fileName, JSON.stringify(archivosSeleccionados))
         Sharing.shareAsync(uri + fileName)
-        .then(()=>{FileSystem.deleteAsync(uri + fileName)})
+        .then(()=>{
+            Object.entries(archivosSeleccionados).map((elem)=>{
+                let index = elem[0]
+                file = elem[1]
+                let from = uri + file.fileName
+                let to = uriPedidosEnviados + file.fileName
+                moveFile(index, from, to)
+            })
+            FileSystem.deleteAsync(uri + fileName)
+            actualizarFilasElementos()
+        })
     }
 
     useEffect(() =>{
         leerFiles()
     }, [])
+
+    useEffect(() =>{
+        actualizarFilasElementos()
+    }, [dataFila])
     
     const actualizarDataFila = (index, data) => {
         const newDataFila = { ...dataFila };
@@ -512,38 +560,50 @@ const ListarFacturasScreen = (navigation) => {
         setDataFila(newDataFila)
     }
 
-    let filasElementos = []
-    for (const [i, fila] of Object.entries(dataFila)) {
-        if (fila) {
-            let file = fila.file
-            filasElementos.push(
-            <GmailStyleSwipeableRow key={i} index={i} eliminarFilaCallback={() => deleteFile(i)}>
-                <FilaArchivo
-                isChecked={isChecked}
-                cliente={file.cliente}
-                direccion={file.direccion}
-                actualizarDataFilaCallback={actualizarDataFila}
-                fecha={file.fecha}
-                filas={file.filas}
-                index={i}
-                key={i}
-                navigation={navigation}
-                />
-            </GmailStyleSwipeableRow>
-            )
+    const actualizarFilasElementos = () => {
+        let newFilasElementos = []
+        for (const [i, fila] of Object.entries(dataFila)) {
+            if (fila) {
+                let file = fila.file
+                newFilasElementos.push(
+                <GmailStyleSwipeableRow key={i} index={i} eliminarFilaCallback={() => deleteFile(i)}>
+                    <FilaArchivo
+                    isChecked={isChecked}
+                    actualizarDataFilaCallback={actualizarDataFila}
+                    file={file}
+                    nombreArchivo={fila.fileName}
+                    index={i}
+                    key={i}
+                    navigation={navigation}
+                    />
+                </GmailStyleSwipeableRow>
+                )
+            }
         }
+        setFilasElementos(newFilasElementos)
     }
+
+    const botones = (
+        <View style={[styles.containerCentered, styles.row , {justifyContent:"space-around"}]}>
+        <Button
+            title="Enviar"
+            color="#36a854"
+            onPress={ enviar }
+        />
+        <Button
+            title="Ver Enviados"
+            color="#454034"
+            // onPress={ () => navigation.navigate("ListarFacturas", {'verEnviados':true}) }
+            onPress={ () => navigation.push("ListarFacturas", {'verEnviados':true}) }
+            // onPress={ () => {setVerEnviados(true); setUri(uriPedidosEnviados)} }
+        />
+    </View>
+    )
 
     return(
     <View style={styles.container}>
         <ScrollView>
-            <View style={styles.containerCentered}>
-                <Button
-                    title="Enviar"
-                    color="#36a854"
-                    onPress={ enviar }
-                />
-            </View>
+            {!verEnviados && botones}
             <View style={[styles.row, {borderBottomWidth:1}]}>
                 <View style={{alignItems: 'center', flexDirection:"column", justifyContent:"space-around"}}>
                     <Checkbox style={[{marginLeft:5}]} value={isChecked} onValueChange={onChangeChecked} color={isChecked ? '#0099ff' : undefined}/>
