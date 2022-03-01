@@ -5,6 +5,9 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 const AnimatedIcon = Animated.createAnimatedComponent(Icon);
 import Checkbox from 'expo-checkbox';
 
+const fileProductos = require('./../assets/infoProductos.json');
+const productos = fileProductos.infoProductos
+
 const FilaProducto = (props) => {
     const [cajas, setCajas] = useState(props.cajas);
     const [unidades, setUnidades] = useState(props.unidades);
@@ -12,8 +15,6 @@ const FilaProducto = (props) => {
     const [producto, setProducto] = useState(props.producto);
     let secondTextInput = createRef();
     let thirdTextInput = createRef();
-    const fileProductos = require('./../assets/infoProductos.json');
-    let productos2 = fileProductos.infoProductos
 
     useEffect(() =>{
         let data = {cajas, unidades, value, producto}
@@ -45,7 +46,7 @@ const FilaProducto = (props) => {
             selectedTextStyle={styles.selectedTextStyle}
             inputSearchStyle={styles.inputSearchStyle}
             iconStyle={styles.iconStyle}
-            data={productos2}
+            data={productos}
             search
             maxHeight={300}
             labelField="DESCRIPCION"
@@ -99,7 +100,6 @@ const FilaProducto = (props) => {
 export default FilaProducto
 
 export const FilaArchivo = (props) => {
-    // TODO: falta que el botón de lupa permita editar un pedido
     const [isChecked, setIsChecked] = useState(props.isChecked);
     useEffect(() =>{
         setIsChecked(props.isChecked)

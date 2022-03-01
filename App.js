@@ -49,9 +49,9 @@ const App = () => {
         <Stack.Screen
             name="ListarFacturas"
             component={ListarFacturasScreen}
-            options={{
-                title: 'Facturas',
-            }}
+            options={({ navigation, route }) => ({
+                title: "Facturas" + (route.params && route.params.verEnviados ? ' Enviadas' : ''),
+            })}
         />
         <Stack.Screen
             name="SeleccionCliente"
@@ -448,10 +448,35 @@ const ListarFacturasScreen = ({navigation, route}) => {
         const newDataFila = {... dataFila}
         if (newDataFila.hasOwnProperty(index)){
             const fileName = newDataFila[index].fileName
-            FileSystem.deleteAsync(uri + fileName).catch((err) => console.log("Error al borrar archivo", err))
+            FileSystem.deleteAsync(uri + fileName).catch(() => {})
             delete newDataFila[index]
             setDataFila(newDataFila);
         }
+    }
+
+    const eliminarSeleccionados = () => {
+        let archivosSeleccionados = Object.fromEntries(Object.entries(dataFila).filter(([k,v]) => v['isChecked']));
+        if (isEmpty(archivosSeleccionados)){
+            Alert.alert("Alerta", "Seleccione al menos un archivo")
+            return false
+        }
+        Alert.alert(
+            "Advertencia",
+            "¿Desea eliminar los archivos seleccionados?",
+            [
+                {
+                    text: "Sí",
+                    onPress: () => {
+                        for (let file_index in Object.keys(archivosSeleccionados)){deleteFile(file_index)}
+                    }
+                },
+                {
+                    text: "Cancelar",
+                    onPress: () => {return false},
+                },
+            ],
+            {cancelable: true,}
+        );
     }
 
     const moveFile = (index, from, to) => {
@@ -460,7 +485,7 @@ const ListarFacturasScreen = ({navigation, route}) => {
             FileSystem.moveAsync({
                 'from': from,
                 'to': to,
-            }).catch((err) => console.log("Error al mover archivo", err))
+            }).catch(() => {})
             delete newDataFila[index]
         setDataFila(newDataFila);
         }
@@ -472,9 +497,8 @@ const ListarFacturasScreen = ({navigation, route}) => {
     
         const newFiles = await FileSystem.readDirectoryAsync(uri)
             .catch(()=> FileSystem.makeDirectoryAsync(uri)
-            .catch((err) => console.log("err", err))
+                .catch(() => {})
             );
-        // let newDataFila = { ...dataFila };
         let newDataFila = {  };
         let i = 0
         for (let fileName of newFiles){
@@ -504,12 +528,12 @@ const ListarFacturasScreen = ({navigation, route}) => {
         fecha = fecha.replace(/\//g, "-")
         
         let fileName = "Pedido_Whisper_" + fecha + ".json"
-        FileSystem.writeAsStringAsync(uri + fileName, JSON.stringify(archivosSeleccionados))
+        FileSystem.writeAsStringAsync(uri + fileName, JSON.stringify({'archivos':archivosSeleccionados}))
         Sharing.shareAsync(uri + fileName)
         .then(()=>{
             Object.entries(archivosSeleccionados).map((elem)=>{
                 let index = elem[0]
-                file = elem[1]
+                let file = elem[1]
                 let from = uri + file.fileName
                 let to = uriPedidosEnviados + file.fileName
                 moveFile(index, from, to)
@@ -517,6 +541,7 @@ const ListarFacturasScreen = ({navigation, route}) => {
             FileSystem.deleteAsync(uri + fileName)
             actualizarFilasElementos()
         })
+        .catch()
     }
 
     useEffect(() =>{
@@ -593,9 +618,12 @@ const ListarFacturasScreen = ({navigation, route}) => {
         <Button
             title="Ver Enviados"
             color="#454034"
-            // onPress={ () => navigation.navigate("ListarFacturas", {'verEnviados':true}) }
             onPress={ () => navigation.push("ListarFacturas", {'verEnviados':true}) }
-            // onPress={ () => {setVerEnviados(true); setUri(uriPedidosEnviados)} }
+        />
+        <Button
+            title="Eliminar"
+            color="red"
+            onPress={ eliminarSeleccionados }
         />
     </View>
     )
